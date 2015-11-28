@@ -13,6 +13,11 @@
         <i class="home icon"></i>
         Home
       </a>
+      <a class="item" href="./semester_list.html">
+        <i class="book icon"></i>
+        Courses
+      </a>
+
       <a class="item" href="./grades.html">
         <i class="student icon"></i>
         Grades
@@ -22,21 +27,32 @@
           Calendar
 
       </a>
+      <a class="item" href="search.html">
+        <i class="search icon"></i>
+          Search
 
+      </a>
     </div>
 </div>
+
 <script src="./static/js/jquery-2.1.4.min.js"></script>
 <script src="./static/semantic/semantic.min.js"></script>
 <script>
   $(document).ready(function() {
+        $('.ui.labeled.icon.sidebar')
+                  .sidebar('toggle')
+          ;
 
   })
 $(document).click(function(e){
-$('.ui.labeled.icon.sidebar')
-              .sidebar('toggle')
-      ;
+    if(e.pageX<50)
+
+        $('.ui.labeled.icon.sidebar')
+                  .sidebar('toggle')
+          ;
 
 });
+
 
 </script>
 </body>
