@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./static/semantic/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css"/>
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="ui left demo vertical inverted sidebar labeled icon menu">
+      <a class="item" href="./main_page.html">
+        <i class="home icon"></i>
+        Home
+      </a>
+      <a class="item" href="crud.html">
+        <i class="university icon"></i>
+          Crud
+
+      </a>
+      <a class="item" href="./semester_list.html">
+        <i class="book icon"></i>
+        Courses
+      </a>
+
+      <a class="item" href="./grades.html">
+        <i class="student icon"></i>
+        Grades
+      </a>
+      <a class="item">
+        <i class="calendar icon"></i>
+          Calendar
+
+      </a>
+      <a class="item" href="search.html">
+        <i class="search icon"></i>
+          Search
+
+      </a>
+        <a class="item" href="inbox.html">
+        <i class="inbox icon"></i>
+          Inbox
+
+      </a>
+    </div>
+</div>
+
+
+<div class="ui grid">
+    <div class="two wide column"></div>
+    <div class="twelve wide column">
+        <div class="ui row">
+
+        </div>
+        <div class="ui comments">
+          <div class="comment">
+            <a class="avatar">
+              <img src="./static/avatars/1.jpg">
+            </a>
+            <div class="content">
+              <a class="author">Rfun</a>
+              <div class="metadata">
+                <span class="date">Today at 5:42PM</span>
+              </div>
+              <div class="text">
+                How are you!
+              </div>
+              <div class="actions">
+                <a class="reply">Reply</a>
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <a class="avatar">
+              <img src="./static/avatars/2.jpg">
+            </a>
+            <div class="content">
+              <a class="author">Makan</a>
+              <div class="metadata">
+                <span class="date">Yesterday at 12:30AM</span>
+              </div>
+              <div class="text">
+                <p>This has been very useful for my research. Thanks as well!</p>
+              </div>
+              <div class="actions">
+                <a class="reply">Reply</a>
+              </div>
+            </div>
+            <div class="comments">
+              <div class="comment">
+                <a class="avatar">
+                  <img src="./static/avatars/3.jpg">
+                </a>
+                <div class="content">
+                  <a class="author">Hamed</a>
+                  <div class="metadata">
+                    <span class="date">Just now</span>
+                  </div>
+                  <div class="text">
+                    you are always so right :)
+                  </div>
+                  <div class="actions">
+                    <a class="reply">Reply</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comment">
+            <a class="avatar">
+              <img src="./static/avatars/4.jpg">
+            </a>
+            <div class="content">
+              <a class="author">Asqar</a>
+              <div class="metadata">
+                <span class="date">5 days ago</span>
+              </div>
+              <div class="text">
+                Dude, this is awesome. Thanks so much
+              </div>
+              <div class="actions">
+                <a class="reply">Reply</a>
+              </div>
+            </div>
+          </div>
+          <form class="ui reply form">
+            <div class="field">
+              <textarea></textarea>
+            </div>
+            <div class="ui blue labeled submit icon button">
+              <i class="icon edit"></i> Add Reply
+            </div>
+          </form>
+        </div>
+    </div>
+    <div class="two wide column"></div>
+</div>
+
+<script src="./static/js/jquery-2.1.4.min.js"></script>
+<script src="./static/semantic/semantic.min.js"></script>
+<script>
+  $(document).ready(function() {
+
+  })
+$(document).click(function(e){
+    if(e.pageX<50){
+$('.ui.labeled.icon.sidebar')
+              .sidebar('toggle')
+      ;}
+
+});
+
+</script>
+</body>
+</html>
