@@ -1,128 +1,164 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>jQuery HeavyTable.js Plugin Demo</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>jQuery HeavyTable.js Plugin Demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" type="text/css" href="./static/semantic/semantic.min.css"/>
     <link rel="stylesheet" type="text/css" href="./static/css/style.css"/>
 
 
-
-  <script src="./static/javascripts/jquery-1.11.3.min.js"></script>
-  <script src="./static/javascripts/jquery.heavyTable.js" type="text/javascript"></script>
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" type="text/css" href="./static/stylesheets/normalize.css">
-  <link rel="stylesheet" type="text/css" href="./static/stylesheets/style.css">
+    <script src="./static/javascripts/jquery-1.11.3.min.js"></script>
+    <script src="./static/javascripts/jquery.heavyTable.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="./static/stylesheets/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./static/stylesheets/style.css">
 
 </head>
 <body>
 
-
 <div>
     <div class="ui left demo vertical inverted sidebar labeled icon menu">
-      <a class="item" href="./main_page.html">
-        <i class="home icon"></i>
-        Home
-      </a>
-      <a class="item" href="crud.html">
-        <i class="university icon"></i>
-          Crud
+        <a class="item" href="./main_page.html">
+            <i class="home icon"></i>
+            Home
+        </a>
+        <a class="item" href="crud.html">
+            <i class="university icon"></i>
+            Crud
+        </a>
+        <a class="item" href="./semester_list.html">
+            <i class="book icon"></i>
+            Courses
+        </a>
 
-      </a>
-      <a class="item" href="./semester_list.html">
-        <i class="book icon"></i>
-        Courses
-      </a>
-
-      <a class="item" href="./grades.html">
-        <i class="student icon"></i>
-        Grades
-      </a>
-      <a class="item">
-        <i class="calendar icon"></i>
-          Calendar
-
-      </a>
-      <a class="item" href="search.html">
-        <i class="search icon"></i>
-          Search
-
-      </a>
+        <a class="item" href="./grades.html">
+            <i class="student icon"></i>
+            Grades
+        </a>
+        <a class="item">
+            <i class="calendar icon"></i>
+            Calendar
+        </a>
+        <a class="item" href="search.html">
+            <i class="search icon"></i>
+            Search
+        </a>
     </div>
+
 </div>
 
+<!--<div class="ui grid">-->
+
+<form id="grade_form">
+    <div class="ui grid">
+        <div class="ui row"></div>
+        <div class="ui row">
+            <div class="seven wide column"></div>
+            <div class="four wide column">
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="radio checkbox">
+                            <input id="exam_radio" type="radio" name="gradable" checked="checked">
+                            <label>Exam</label>
+                        </div>
+
+                    </div>
+                    <div class="field">
+                        <div class="radio checkbox">
+                            <input id="assignment_radio" type="radio" name="gradable">
+                            <label>Assignment</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="five wide column"></div>
+        </div>
+    </div>
 
 
+    <div class='main'>
+        <table class="heavyTable">
+            <thead>
+            <tr>
+                <th>Student</th>
+                <th>Row grade</th>
+                <th class="hide_penalty">Penalty</th>
+            </tr>
+            </thead>
+            <tbody id="table_body">
+            <tr>
+                <td>90106096</td>
+                <td></td>
+                <td class="hide_penalty"></td>
+            </tr>
+            <tr>
+                <td>90110223</td>
+                <td></td>
+                <td class="hide_penalty"></td>
+            </tr>
+            <tr>
+                <td>93700417</td>
+                <td></td>
+                <td class="hide_penalty"></td>
+            </tr>
+            <tr>
+                <td>90107584</td>
+                <td></td>
+                <td class="hide_penalty"></td>
+            </tr>
+            <tr>
+                <td>90102145</td>
+                <td></td>
+                <td class="hide_penalty"></td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="#" style="color: #00918b; " id="add_column"><i class="add icon"></i></a>
+    </div>
+    <div class="ui grid">
+        <div class="seven wide column"></div>
+        <div class="four wide column" style="margin-left: 20px">
+            <button id="submit_button"type="submit" class="ui button">Submit</button>
 
-  <div class='main' >
-    <table class="heavyTable">
-      <thead>
-        <tr>
-          <th>Student</th>
-          <th>Row grade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>90106096</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>90110223</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>93700417</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>90107584</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>90102145</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-</div>
+        </div>
+        <div class="five wide column"></div>
+
+    </div>
+</form>
 
 <script src="./static/javascripts/script.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
 </script>
 
 <script src="./static/semantic/semantic.min.js"></script>
 <script>
-  $(document).ready(function() {
-
-  })
-$(document).click(function(e){
-    if(e.pageX<50)
-
-        $('.ui.labeled.icon.sidebar')
-                  .sidebar('toggle')
-          ;
-
-});
-
+    $('#grade_form').submit(function(e){
+        e.preventDefault();
+    });
+    $(document).ready(function () {
+        $('.hide_penalty').hide()
+    })
+    $(document).click(function (e) {
+        if (e.pageX < 50 & e.pageX != 0 )
+            $('.ui.labeled.icon.sidebar')
+                    .sidebar('toggle')
+            ;
+    });
+    $("#assignment_radio").click(function (e) {
+        $('.hide_penalty').show()
+    });
+    $("#exam_radio").click(function (e) {
+        $('.hide_penalty').hide()
+    });
+    $('#add_column').click(function (e) {
+        console.log($('#table_body'));
+        $('#table_body').append('<tr> <td></td> <td></td><td class="hide_penalty" ></td></tr>')
+        if ($('#exam_radio').attr('checked') == 'checked')
+            $('.hide_penalty').hide();
+    });
 
 </script>
-
+<!--</div>-->
 </body>
 </html>

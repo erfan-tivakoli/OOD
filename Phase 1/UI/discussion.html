@@ -9,146 +9,184 @@
 <body>
 <div>
     <div class="ui left demo vertical inverted sidebar labeled icon menu">
-      <a class="item" href="./main_page.html">
-        <i class="home icon"></i>
-        Home
-      </a>
-      <a class="item" href="crud.html">
-        <i class="university icon"></i>
-          Crud
+        <a class="item" href="./main_page.html">
+            <i class="home icon"></i>
+            Home
+        </a>
+        <a class="item" href="crud.html">
+            <i class="university icon"></i>
+            Crud
 
-      </a>
-      <a class="item" href="./semester_list.html">
-        <i class="book icon"></i>
-        Courses
-      </a>
+        </a>
+        <a class="item" href="./semester_list.html">
+            <i class="book icon"></i>
+            Courses
+        </a>
 
-      <a class="item" href="./grades.html">
-        <i class="student icon"></i>
-        Grades
-      </a>
-      <a class="item">
-        <i class="calendar icon"></i>
-          Calendar
+        <a class="item" href="./grades.html">
+            <i class="student icon"></i>
+            Grades
+        </a>
+        <a class="item">
+            <i class="calendar icon"></i>
+            Calendar
 
-      </a>
-      <a class="item" href="search.html">
-        <i class="search icon"></i>
-          Search
+        </a>
+        <a class="item" href="search.html">
+            <i class="search icon"></i>
+            Search
 
-      </a>
+        </a>
         <a class="item" href="inbox.html">
-        <i class="inbox icon"></i>
-          Inbox
+            <i class="inbox icon"></i>
+            Inbox
 
-      </a>
+        </a>
     </div>
 </div>
 
 
 <div class="ui grid">
+    <div class="ui row"></div>
+    <div class="ui row">
+        <h3 class="ui header center aligned"> Project 1 phase 2 comments</h3>
+    </div>
     <div class="two wide column"></div>
-    <div class="twelve wide column">
+    <div class="ten wide column">
         <div class="ui row">
 
         </div>
         <div class="ui comments">
-          <div class="comment">
-            <a class="avatar">
-              <img src="./static/avatars/1.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Rfun</a>
-              <div class="metadata">
-                <span class="date">Today at 5:42PM</span>
-              </div>
-              <div class="text">
-                How are you!
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment">
-            <a class="avatar">
-              <img src="./static/avatars/2.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Makan</a>
-              <div class="metadata">
-                <span class="date">Yesterday at 12:30AM</span>
-              </div>
-              <div class="text">
-                <p>This has been very useful for my research. Thanks as well!</p>
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
-            </div>
-            <div class="comments">
-              <div class="comment">
+            <div class="comment">
                 <a class="avatar">
-                  <img src="./static/avatars/3.jpg">
+                    <img src="./static/avatars/1.jpg">
                 </a>
+
                 <div class="content">
-                  <a class="author">Hamed</a>
-                  <div class="metadata">
-                    <span class="date">Just now</span>
-                  </div>
-                  <div class="text">
-                    you are always so right :)
-                  </div>
-                  <div class="actions">
-                    <a class="reply">Reply</a>
-                  </div>
+                    <a class="author">Rfun</a>
+
+                    <div class="metadata">
+                        <span class="date">Today at 5:42PM</span>
+                    </div>
+                    <div class="text">
+                        How are you!
+                    </div>
+                    <div class="ui star rating read-only">
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="comment">
-            <a class="avatar">
-              <img src="./static/avatars/4.jpg">
-            </a>
-            <div class="content">
-              <a class="author">Asqar</a>
-              <div class="metadata">
-                <span class="date">5 days ago</span>
-              </div>
-              <div class="text">
-                Dude, this is awesome. Thanks so much
-              </div>
-              <div class="actions">
-                <a class="reply">Reply</a>
-              </div>
+            <div class="comment">
+                <a class="avatar">
+                    <img src="./static/avatars/2.jpg">
+                </a>
+
+                <div class="content">
+                    <a class="author">Makan</a>
+
+                    <div class="metadata">
+                        <span class="date">Yesterday at 12:30AM</span>
+                    </div>
+                    <div class="text">
+                        <p>This has been very useful for my research. Thanks as well!</p>
+                    </div>
+                    <div class="ui star rating read-only">
+                    </div>
+                </div>
             </div>
-          </div>
-          <form class="ui reply form">
-            <div class="field">
-              <textarea></textarea>
+            <div class="comment">
+                <a class="avatar">
+                    <img src="./static/avatars/4.jpg">
+                </a>
+
+                <div class="content">
+                    <a class="author">Asqar</a>
+
+                    <div class="metadata">
+                        <span class="date">5 days ago</span>
+                    </div>
+                    <div class="text">
+                        Dude, this is awesome. Thanks so much
+                    </div>
+                    <div class="ui star rating read-only">
+                    </div>
+                </div>
             </div>
-            <div class="ui blue labeled submit icon button">
-              <i class="icon edit"></i> Add Reply
-            </div>
-          </form>
         </div>
     </div>
-    <div class="two wide column"></div>
+    <div class="three wide column">
+        <div class="segment">
+            <form class="ui reply form">
+                <div class="ui star rating" id="your_rate"></div>
+                <div class="field">
+                    <textarea></textarea>
+                </div>
+                <button id="submit_button" class="ui blue button submit"
+                        type="submit">
+                    Submit
+                </button>
+            </form>
+            <div class="ui dimmer">
+                <div class="content">
+                    <div class="center">
+                        <h2 class="ui inverted icon header">
+                            <i class="comment icon"></i>
+                            نظر شما ثبت شد
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="one"></div>
 </div>
 
 <script src="./static/js/jquery-2.1.4.min.js"></script>
 <script src="./static/semantic/semantic.min.js"></script>
 <script>
-  $(document).ready(function() {
+    $(document).ready(function () {
 
-  })
-$(document).click(function(e){
-    if(e.pageX<50){
-$('.ui.labeled.icon.sidebar')
-              .sidebar('toggle')
-      ;}
+    })
+    $(document).click(function (e) {
+        if (e.pageX < 50) {
+            $('.ui.labeled.icon.sidebar')
+                    .sidebar('toggle')
+            ;
+        }
 
-});
+    });
+
+    var ui_ratings = $('.ui.rating.read-only')
+    ui_ratings.rating({
+        initialRating: 3,
+        maxRating: 5
+    })
+    ;
+    ui_ratings.rating('disable');
+    ;
+    var your_rating = $('#your_rate');
+    your_rating.rating({
+        initialRating: 0,
+        maxRating: 5
+    })
+    your_rating.rating('enabled');
+    var flag = 0;
+    var reply_form = $('.ui.reply.form')
+    reply_form.submit(function (e) {
+        if (flag == 0) {
+            $('.segment').dimmer('show');
+            setTimeout(continueExecution, 2000);
+            return false
+        }
+        if (flag == 1) {
+            return true
+        }
+    })
+    function continueExecution() {
+        flag = 1
+        reply_form.submit();
+
+    }
 
 </script>
 </body>

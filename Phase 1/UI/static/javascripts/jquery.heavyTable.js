@@ -9,7 +9,7 @@
     }, params);
 
     this.each(function() {
-      var 
+      var
         $hTable = $(this).find('tbody'),
         i = 0,
         x = params.startPosition.x,
@@ -17,11 +17,13 @@
         max = {
           y: $hTable.find('tr').length,
           x: $hTable.parent().find('th').length
+          //  x:50,
+          //  y:50
         };
-        
+
       //console.log(xMax + '*' + yMax);
-      
-      function clearCell () {    
+
+      function clearCell () {
         content = $hTable.find('.selected input').val();
         $hTable.find('.selected').html(content);
         $hTable.find('.selected').toggleClass('selected');
@@ -32,7 +34,7 @@
         if ( x > max.x ) x = max.x;
         if ( y < 1 ) y = 1;
         if ( x < 1 ) x = 1;
-        currentCell = 
+        currentCell =
          $hTable
             .find('tr:nth-child('+(y)+')')
             .find('td:nth-child('+(x)+')');
@@ -41,12 +43,12 @@
           .toggleClass('selected')
         return currentCell;
       }
-      
+
       function edit (currentElement) {
         var input = $('<input>', {type: "text"})
           .val(currentElement.html())
         currentElement.html(input)
-        input.focus(); 
+        input.focus();
       }
 
       $hTable.find('td').click( function () {
@@ -57,6 +59,13 @@
       });
 
       $(document).keydown(function(e){
+        max = {
+          y: $hTable.find('tr').length,
+          x: $hTable.parent().find('th').length
+          //  x:50,
+          //  y:50
+        };
+
         if (e.keyCode == 13) {
           clearCell();
           edit(selectCell());
@@ -76,7 +85,7 @@
           selectCell();
           return false;
         }
-      }); 
+      });
     });
   };
 })(jQuery);

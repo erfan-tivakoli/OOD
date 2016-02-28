@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./static/semantic/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="./static/css/style.css"/>
+    <title></title>
+</head>
+<body>
+<div class="ui grid">
+    <div class="ui row"></div>
+    <div class="ui row">
+
+        <div class="four wide column"></div>
+        <div class="two wide column">
+            <button class="ui button" id="add_new">Add new</button>
+        </div>
+
+    </div>
+    <div class="ui row">
+        <div class="four wide column"></div>
+        <div class="eleven wide column">
+            <table id="project_table" class="ui celled padded table">
+                <thead>
+                <tr>
+                    <th class="single line">Project</th>
+                    <th>Phase</th>
+                    <th>*/20</th>
+                    <th>Deadline</th>
+                    <th>Brief description</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody id="project_table_body">
+                <tr>
+                    <td>
+                        <a href="submitted_project.html"><h2 class="ui center aligned header">Project1</h2></a>
+                    </td>
+                    <td class="single line">Phase1<a><i class="download icon"></i></a>
+                    </td>
+                    <td class="ui center aligned">2
+                    </td>
+                    <td class="right aligned">2015/04/03
+                    </td>
+                    <td class="ui right aligned">اینجا برای توضیح است
+                    </td>
+                    <td class="ui center aligned"><a class="my_delete"><i class="trash icon"></i></a><a class="my_edit"><i
+                            class="write icon"></i></a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="submitted_project.html"><h2 class="ui center aligned header">Project2</h2></a>
+                    </td>
+                    <td class="single line" name="course_name">phase1<a><i class="download icon"></i></a></td>
+                    <td class="ui center aligned">2
+                    </td>
+                    <td class="ui right aligned">2015/05/06
+                    </td>
+                    <td class="ui right aligned">اینجا برای توضیح است
+                    </td>
+                    <td class="ui center aligned"><a class="my_delete"><i class="trash icon"></i></a><a
+                            class="my_edit"><i
+                            class="write icon"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<div class="ui modal" id="create_modal">
+    <i class="close icon"></i>
+
+    <div class="image content">
+        <div class="description">
+            <div class="ui header">
+                <div class="ui grid">
+
+                    <div>
+                    </div>
+                    <div class="ui row">
+                        <div class="sixteen wide column">
+                            <div class="ui segment" id="form_container">
+                                <form id="Project_form" class="ui form" >
+                                    <div class="required field">
+                                        <label>Name</label>
+                                        <input id="name_input" type="text" name="name"
+                                               placeholder="Name">
+                                    </div>
+
+                                    <div class="required field">
+                                        <label>Phase</label>
+                                        <input id="phase_input" type="text" name="phase"
+                                               placeholder="Phase">
+                                    </div>
+
+
+                                    <div class="required field">
+                                        <label>*/20</label>
+                                        <input id="baggage_input" type="text" name="baggage"
+                                               placeholder="Baggage">
+                                    </div>
+
+                                    <div class="required field">
+                                        <label>Deadline</label>
+                                        <input id="deadline_input" type="datetime-local" name="time"
+                                               placeholder="deadline">
+
+                                    </div>
+                                    <div class="field">
+                                        <label>Description</label>
+                                        <textarea rows="2"></textarea>
+
+                                    </div>
+
+                                    <button id="submit_button" class="ui button submit"
+                                            type="submit">
+                                        Submit
+                                    </button>
+                                </form>
+
+                                <!--<div class="ui segment">-->
+                                <h3 class="ui header">
+                                    <!--Overlayable Section-->
+                                </h3>
+
+                                <div class="ui small images">
+                                    <img>
+                                    <img>
+                                    <img>
+                                </div>
+                                <p></p>
+
+                                <div class="ui dimmer">
+                                    <div class="content">
+                                        <div class="center">
+                                            <h2 class="ui inverted icon header">
+                                                <i class="heart icon"></i>
+                                                form submitted successfuly!
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui basic modal" id="approve_cancel">
+  <i class="close icon"></i>
+  <div class="header">
+    Are you sure?
+  </div>
+  <div class="image content">
+    <div class="image">
+      <i class="archive icon"></i>
+    </div>
+    <div class="description">
+      <p></p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="two fluid ui inverted buttons">
+      <div class="ui red basic inverted button" id="cancel">
+        <i class="remove icon"></i>
+        No
+      </div>
+      <div class="ui green basic inverted button" id="approve">
+        <i class="checkmark icon"></i>
+        Yes
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./static/js/jquery-2.1.4.min.js"></script>
+<script src="./static/semantic/semantic.min.js"></script>
+
+<script>
+    $('#approve').click(function(e){
+        parent.removeChild(child);
+    });
+    $('#add_new').click(function (e) {
+        var inputs = project_form.find('input');
+        for(i=0;i<inputs.length;i++){
+            inputs[i].setAttribute('value', '');
+        }
+
+        $('#create_modal')
+                .modal('show')
+        ;
+    });
+    var parent;
+    var child;
+    $('.my_delete').click(function(e){
+        child = e.currentTarget.parentNode.parentNode;
+        parent = document.getElementById('project_table_body');
+        console.log(child);
+        console.log(parent);
+        $('#approve_cancel').modal('show');
+//        parent.removeChild(child);
+    });
+
+    $('.my_edit').click(function (e) {
+        var childs = e.currentTarget.parentNode.parentNode.children;
+        console.log(childs)
+        data = {};
+        data['name'] = childs[0].children[0].children[0].innerHTML;
+        data['phase'] = childs[1].innerHTML;
+        data['baggage'] = childs[2].innerHTML;
+        data['deadline'] = childs[3].innerHTML;
+        data['description'] = childs[4].innerHTML;
+        var inputs = $('#Project_form').find('input');
+        var text = $('#Project_form').find('textarea');
+
+        inputs[0].setAttribute('value', data['name']);
+        inputs[1].setAttribute('value', data['phase']);
+        inputs[2].setAttribute('value', data['baggage']);
+        text.html(data['description'])
+//        console.log(inputs[3]);
+//        inputs[3].html(data['description']);
+
+        $('#create_modal').modal('show');
+    });
+
+
+    var flag = 0;
+    var project_form = $('#Project_form');
+    project_form.submit(function (e) {
+        var current = new Date();
+
+        if (flag == 1) {
+            flag = 0;
+            return true;
+        }
+        var $inputs = $('#Project_form :input');
+        var values = {};
+        $inputs.each(function () {
+            values[this.name] = $(this).val();
+        });
+
+        var childs = project_form.find('div');
+        var set_time = new Date(values['time']);
+
+        re = new RegExp(/\D/);
+        re2 = new RegExp(/\d|\d\.\d/);
+        if (values['name'] == '' && childs[0].getAttribute('class') != 'required field error') {
+            var div = childs[0];
+            var ch = childs[0].innerHTML;
+
+            div.innerHTML = ch + '<p style="text-align: right; color: darkred">این قسمت ضروری است</p>';
+            div.setAttribute('class', 'required field error')
+            return false
+        }
+        else if (childs[1].getAttribute('class') != 'required field error' && values['phase'] == ''){
+            var div = childs[1];
+            var ch = childs[1].innerHTML;
+
+            div.innerHTML = ch + '<p style="text-align: right; color: darkred">این قسمت ضروری است</p>';
+            div.setAttribute('class', 'required field error')
+            return false
+
+        }
+        else if (childs[2].getAttribute('class') != 'required field error' && !re2.test(values['baggage'])) {
+            var div = childs[2];
+            var ch = childs[2].innerHTML;
+            div.innerHTML = ch + '<p style="text-align: right; color: darkred">عددی در بازه ۰ تا ۲۰ وارد کنید</p>';
+            div.setAttribute('class', 'required field error')
+            return false
+        }
+        else if (set_time < current) {
+
+            var div = childs[3];
+            var ch = childs[3].innerHTML;
+            div.innerHTML = ch + '<p style="text-align: right; color: darkred"> زمان وارد شده مربوط به گذشته است</p>';
+            div.setAttribute('class', 'required field error')
+            return false
+
+        }
+        else {
+            $('.segment').dimmer('show');
+            setTimeout(continueExecution_project, 2000);
+            return false;
+        }
+
+    });
+
+    function continueExecution_project() {
+        flag = 1;
+        project_form.submit();
+    }
+
+</script>
+
+
+</body>
+</html>

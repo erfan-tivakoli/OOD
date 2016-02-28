@@ -14,14 +14,14 @@
     <div class="six wide column"></div>
     <div class="four wide column">
         <div class="sixteen wide column">
-        <form class="ui form">
+        <form id="login_form" class="ui form">
           <div class="field">
             <label>User Name</label>
-            <input type="text" name="first-name" placeholder="User Name">
+            <input type="text" name="username" placeholder="User Name" id="username_input" class="login_field">
           </div>
           <div class="field">
             <label>Password</label>
-            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="password" placeholder="Password" class="login_field" id="pass_field">
           </div>
           <div class="field">
 
@@ -29,10 +29,42 @@
           <button class="ui button" type="submit">Submit</button>
         </form>
         </div>
-
     </div>
 
         <div class="six wide column"></div>
 </div>
+<script src="./static/js/jquery-2.1.4.min.js"></script>
+<script src="./static/semantic/semantic.min.js"></script>
+
+<script>
+    $('#login_form').submit(function(e){
+        var $inputs = $('#login_form :input');
+        var childs = $('#login_form').find('div')
+        var values = {};
+        $inputs.each(function () {
+            values[this.name] = $(this).val();
+        });
+        if(values['username'] == '' && values['password'] == ''){
+            var div = childs[0]
+            div.setAttribute('class', 'required field error')
+            childs[1].setAttribute('class', 'required field error')
+            return false
+        }
+        else if(values['username'] == ''){
+            childs[0].setAttribute('class', 'required field error')
+            return false
+        }
+        else if(values['password'] == ''){
+            childs[1].setAttribute('class', 'required field error')
+            return false
+        }
+        else {
+            window.open("main_page.html");
+            return true
+        }
+
+    })
+
+</script>
 </body>
 </html>
