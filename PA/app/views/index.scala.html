@@ -9,12 +9,52 @@
  * argument is a `String` with the title of the page, the second
  * argument is an `Html` object containing the body of the page.
  *@
-@main("Welcome to Play") {
 
     @*
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    @play20.welcome(message, style = "Java")
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/semantic/semantic.min.css")"/>
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("/static/css/style.css")'/>
+        <title></title>
+    </head>
+    <body>
+        @*<img class="ui medium image" src="@routes.Assets.versioned("/static/avatars/2.jpg")">*@
 
-}
+        <div class="ui grid">
+            <div class="ui row"></div>
+            <div class="ui row"></div>
+            <div class="six wide column"></div>
+            <div class="four wide column">
+                <div class="sixteen wide column">
+                    <form class="ui form">
+                        <div class="field">
+                            <label>User Name</label>
+                            <input type="text" name="first-name" placeholder="User Name">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="field">
+                        </div>
+                        <div class="ui three column grid">
+                                <div class="column"></div>
+                                <div class="column ">
+                                    <button class="ui button blue" type="submit">Submit</button>
+                                </div>
+                                <div class="column"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="six wide column"></div>
+        </div>
+    </body>
+</html>
