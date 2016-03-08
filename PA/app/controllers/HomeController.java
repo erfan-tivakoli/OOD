@@ -24,6 +24,9 @@ public class HomeController extends Controller {
     public Result index() {
         return ok(login.render());
     }
+    public Result loginSubmit(){
+        return null;
+    }
 
     public Result addPerson() {
           Map datas = Form.form(Person.class).bindFromRequest().data();

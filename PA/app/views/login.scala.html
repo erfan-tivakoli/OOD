@@ -13,7 +13,8 @@
             <div class="six wide column"></div>
             <div class="four wide column">
                 <div class="sixteen wide column">
-                    <form class="ui form">
+                    @helper.form(action = routes.HomeController.loginSubmit())
+                    <form class="ui form" >
                         <div class="field">
                             <label>User Name</label>
                             <input type="text" name="first-name" placeholder="User Name">
