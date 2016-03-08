@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/semantic/semantic.min.css")"/>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/css/style.css")"/>
+        <title></title>
+    </head>
+    <body>
+        <div>
+            <div class="ui left demo vertical inverted sidebar labeled icon menu">
+                <a class="item" href="./main_page.html">
+                    <i class="home icon"></i>
+                    Home
+                </a>
+                <a class="item" href="crud.html">
+                    <i class="university icon"></i>
+                    Crud
+
+                </a>
+                <a class="item" href="./semester_list.html">
+                    <i class="book icon"></i>
+                    Courses
+                </a>
+
+                <a class="item" href="./grades.html">
+                    <i class="student icon"></i>
+                    Grades
+                </a>
+                <a class="item">
+                    <i class="calendar icon"></i>
+                    Calendar
+
+                </a>
+                <a class="item" href="search.html">
+                    <i class="search icon"></i>
+                    Search
+
+                </a>
+                <a class="item" href="inbox.html">
+                    <i class="inbox icon"></i>
+                    Inbox
+
+                </a>
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">کارگاه کامپیوتر 40108</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">واحد:۳</li>
+                                <li class="ui right aligned">ترم:۹۴-۹۵-۱</li>
+                                <li class="ui right aligned">گروه:۱</li>
+                                <li class="ui right aligned">کلاس:۱۰۶</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">مدرس</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">مرتضی امینی</li>
+                                <li class="ui right aligned">amini [AT] sharif [DOT] edu</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">دستیاران آموزشی</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">اتقی زاد lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">مرجع</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned"> W. H. Hayt, J. E. Kemmerly, and S. M. Durbin, Engineering Circuit Analysis (6th Edition), McGraw Hill, 2002.</li>
+                                <li class="ui right aligned"> R. Boylestad and L. Nashelsky, Electronic Devices and Circuit Theory (4th Edition), Prentice Hall, 1987.</li>
+                                <li class="ui right aligned"> W. H. Hayt, J. E. Kemmerly, and S. M. Durbin, Engineering Circuit Analysis (6th Edition), McGraw Hill, 2002.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui compact segments">
+                    <div class="ui segment right aligned">
+                        <p><a href="#">پروژه</a></p>
+                    </div>
+                    <div class="ui segment right aligned">
+                        <p><a href="#">نمره</a></p>
+                    </div>
+                    <div class="ui segment right aligned">
+                        <p><a href="#">امتحان</a></p>
+                    </div>
+
+                    <div class="ui segment right aligned">
+                        <p><a href="#">منابع</a></p>
+                    </div>
+                        <!--<div class="ui segment">-->
+                        <!--<p style="text-align: right"><a href="#"></a></p>-->
+                        <!--</div>-->
+                </div>
+            </div>
+            <div class="two wide column"></div>
+        </div>
+
+        <script src="@routes.Assets.versioned("/static/js/jquery-2.1.4.min.js")"></script>
+        <script src="@routes.Assets.versioned("/static/semantic/semantic.min.js")"></script>
+        <script>
+          $(document).ready(function() {
+                $('.ui.labeled.icon.sidebar')
+                          .sidebar('toggle')
+                  ;
+
+          })
+        $(document).click(function(e){
+            if(e.pageX<50)
+
+                $('.ui.labeled.icon.sidebar')
+                          .sidebar('toggle')
+                  ;
+        });
+        </script>
+    </body>
+</html>
