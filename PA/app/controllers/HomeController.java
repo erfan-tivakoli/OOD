@@ -46,9 +46,6 @@ public class HomeController extends Controller {
             String fileName = filePart.getFilename();
             String contentType = filePart.getContentType();
             java.io.File file = (File) filePart.getFile();
-            System.out.println(fileName);
-            System.out.println(file);
-            System.out.println(contentType);
             return ok("File uploaded");
         } else {
             flash("error", "Missing file");
