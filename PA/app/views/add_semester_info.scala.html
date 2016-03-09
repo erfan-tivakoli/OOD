@@ -1,0 +1,49 @@
+@()
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <script src="@routes.Assets.versioned("/static/js/jquery-2.1.4.min.js")"></script>
+        <script src="@routes.Assets.versioned("/static/semantic/semantic.min.js")"></script>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/semantic/semantic.min.css")"/>
+        <link rel="stylesheet" type="text/css" href='@routes.Assets.versioned("/static/css/style.css")'/>
+        <title></title>
+    </head>
+    <body>
+        <div class="ui grid">
+            <div class="ui row"></div>
+            <div class="ui row"></div>
+            <div class="six wide column"></div>
+            <div class="four wide column">
+                <div class="sixteen wide column">
+                @helper.form(action = routes.HomeController.getSemesterFile(),'enctype -> "multipart/form-data", 'class->"ui form segment"){
+                    <div class="field">
+                        <label>Semester file</label>
+                        <input id="user_field" type="file" name="info">
+                    </div>
+                    <div class="ui error message" id="error_div">
+                        <ul>
+                            <li id="empty_field">
+                                Please fill the blank
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ui three column grid">
+                        <div class="column"></div>
+                        <div class="column ">
+                            <input class="ui button blue" id="submitter" type="submit" value="submit">
+                        </div>
+                        <div class="column"></div>
+                    </div>
+                }
+                </div>
+
+            </div>
+
+            <div class="six wide column"></div>
+        </div>
+        <script>
+
+        </script>
+    </body>
+</html>

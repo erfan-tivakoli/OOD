@@ -1,0 +1,36 @@
+<div>
+    <div class="ui left demo vertical inverted sidebar labeled icon menu">
+        <a class="item" href="./main_page.html">
+            <i class="home icon"></i>
+            Home
+        </a>
+
+        <a class="item" href="./semester_list.html">
+            <i class="university icon"></i>
+            Semesters
+        </a>
+        <a class="item" href="search.html">
+            <i class="search icon"></i>
+            Search
+        </a>
+        <a class="item" href="inbox.html">
+            <i class="inbox icon"></i>
+            Inbox
+        </a>
+    </div>
+</div>
+<script>
+                  $(document).ready(function() {
+                        $('.ui.labeled.icon.sidebar')
+                                  .sidebar('toggle')
+                          ;
+
+                  });
+                $(document).click(function(e){
+                    if(e.pageX<50)
+
+                        $('.ui.labeled.icon.sidebar')
+                                  .sidebar('toggle')
+                          ;
+                });
+</script>
