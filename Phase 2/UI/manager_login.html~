@@ -34,7 +34,7 @@
 <script src="./static/semantic/semantic.min.js"></script>
 
 <script>
-$('.field form')
+$('.field.example form')
   .form({
     on: 'blur',
     fields: {
