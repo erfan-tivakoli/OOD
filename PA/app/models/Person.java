@@ -6,42 +6,34 @@ import javax.persistence.*;
 import com.avaje.ebean.Model;
 import play.data.validation.*;
 
-@Entity
-public class Person extends Model {
+import java.util.Date;
 
+
+
+
+@MappedSuperclass
+public abstract class Person extends Model {
     @Id
     public int id;
-
-    @Column(unique = true)
-    public String userName;
 
     @Constraints.Required
     public String password;
     public String name;
-    public String familyName;
-    public String emailAddress;
+    public Date birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     public Inbox inbox;
 
 
-    public Person(String userName, String password, String name, String familyName, String emailAddress) {
-        this.userName = userName;
+    public Person(int id, String password, String name, Date birthDate) {
+        this.id = id;
         this.password = password;
         this.name = name;
-        this.familyName = familyName;
-        this.emailAddress = emailAddress;
-        this.inbox = new Inbox(this.emailAddress);
+        this.birthDate = birthDate;
+        this.inbox = new Inbox(id);
 
     }
-    public static Finder<String,Person> find = new Finder<String,Person>(
-            String.class, Person.class
-    );
 
-    public static Person authenticate(String userName, String password) {
-        return find.where().eq("email", userName)
-                .eq("password", password).findUnique();
-    }
 
 }
 
