@@ -1,5 +1,16 @@
 package models;
 
+<<<<<<< HEAD
+/**
+ * Created by Rfun on 3/8/2016 AD.
+ */
+//public class Manager extends Person {
+//
+//    public Manager(){
+//
+//    }
+//}
+=======
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -49,3 +60,4 @@ public class Manager extends Person {
     }
 
 }
+>>>>>>> database

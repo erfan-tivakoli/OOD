@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.avaje.ebean.annotation.EntityConcurrencyMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,15 +12,13 @@ public class Inbox extends Model {
     @Id
     public int id;
 
-    @Column(unique = true)
-    public String emailAddress;
-
-    @OneToMany(cascade = CascadeType.ALL)
     ArrayList<Message> messages;
 
-    public Inbox(String emailAddress){
-        this.emailAddress = emailAddress;
-        messages = new ArrayList<>();
+    public Inbox(int id){
+
+        this.messages = new ArrayList<>();
+        this.id = id;
+
     }
 
 
