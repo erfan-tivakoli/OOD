@@ -29,8 +29,15 @@ public class Student extends Person{
 
     public void addCurrentCourse(ProvidedCourse providedCourse){
 
-        this.currentCourses.add(providedCourse);
-        this.allCourses.add(providedCourse);
+        if (!allCourses.contains(providedCourse)){
+            this.currentCourses.add(providedCourse);
+            this.allCourses.add(providedCourse);
+        }
+        else{
+            System.err.println("This is redundant");
+        }
     }
+
+
 
 }

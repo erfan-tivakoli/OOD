@@ -27,11 +27,13 @@ public class Teacher extends Person {
 
     //TODO: to check this course was not present in the list
     public void addCurrentCourse(ProvidedCourse currentCourse) {
-        System.err.println(this.currentCourses.size());
-        this.currentCourses.add(currentCourse);
-        this.allCourses.add(currentCourse);
-        System.err.println(this.currentCourses.size());
+
+        if (!allCourses.contains(currentCourse)){
+            this.currentCourses.add(currentCourse);
+            this.allCourses.add(currentCourse);
+        }
     }
+
 
 
 

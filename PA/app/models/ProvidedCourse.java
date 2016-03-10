@@ -4,7 +4,9 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -19,17 +21,21 @@ public class ProvidedCourse extends Model {
     private Teacher teacher;
     @ManyToOne(cascade = CascadeType.ALL)
     private Course course;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
+
 
     private String semester;
     private int groupID;
     private String room;
 
     //TODO: change the format of time to a better class, and also semester
+    //TODO: to check wether it's better to add the teacher here or not
     public ProvidedCourse(int id, int courseNo, String title, String time, Date finalExamTime, int teacherID, String semester,
                           int groupID, String room, int credits)
     {
 
-        Course course = Course.find.where().eq("courseNo", courseNo).findUnique();
+        Course course = Course.find.byId(courseNo);
         //If we don't have this course already we will create it
         if (course == null) {
             course = new Course(courseNo, title, credits);
@@ -51,7 +57,6 @@ public class ProvidedCourse extends Model {
         this.semester = semester;
         this.groupID = groupID;
         this.room = room;
-        //TODO:change this mess to auto generate id
         this.id = id;
 
     }
@@ -62,5 +67,15 @@ public class ProvidedCourse extends Model {
 
     public Course getCourse(){
         return this.course;
+    }
+
+    public List<Student> getStudents() {
+        return this.students;
+    }
+
+    public void addStudent(Student student){
+        if(!(this.students.contains(student))){
+            this.students.add(student);
+        }
     }
 }
