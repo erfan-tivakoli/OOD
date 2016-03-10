@@ -1,4 +1,4 @@
-@(person: Person)
+@(person: Person, courseList:List[ProvidedCourse])
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -16,11 +16,9 @@
         <div class="three wide column"></div>
         <div class="eight wide column">
             <div class="ui link cards">
-                <h2>@person.getName</h2>
-                @base.course()
-                @base.course()
-                @base.course()
-                @base.course()
+                @for(course<-courseList) {
+                    @base.course(course)
+                }
             </div>
         </div>
 

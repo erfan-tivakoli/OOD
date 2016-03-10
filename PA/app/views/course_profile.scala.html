@@ -2,48 +2,11 @@
 <html>
     <head lang="en">
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/semantic/semantic.min.css")"/>
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("/static/css/style.css")"/>
+        @base.base_static()
         <title></title>
     </head>
     <body>
-        <div>
-            <div class="ui left demo vertical inverted sidebar labeled icon menu">
-                <a class="item" href="./main_page.html">
-                    <i class="home icon"></i>
-                    Home
-                </a>
-                <a class="item" href="crud.html">
-                    <i class="university icon"></i>
-                    Crud
-
-                </a>
-                <a class="item" href="./semester_list.html">
-                    <i class="book icon"></i>
-                    Courses
-                </a>
-
-                <a class="item" href="./grades.html">
-                    <i class="student icon"></i>
-                    Grades
-                </a>
-                <a class="item">
-                    <i class="calendar icon"></i>
-                    Calendar
-
-                </a>
-                <a class="item" href="search.html">
-                    <i class="search icon"></i>
-                    Search
-
-                </a>
-                <a class="item" href="inbox.html">
-                    <i class="inbox icon"></i>
-                    Inbox
-
-                </a>
-            </div>
-        </div>
+        @base.sidebar()
         <div class="ui grid">
             <div class="ui row"></div>
             <div class="three wide column"></div>
@@ -125,6 +88,9 @@
                         <!--<div class="ui segment">-->
                         <!--<p style="text-align: right"><a href="#"></a></p>-->
                         <!--</div>-->
+                </div>
+                <div class="">
+                    <button class="ui button blue">Set syllabus</button>
                 </div>
             </div>
             <div class="two wide column"></div>

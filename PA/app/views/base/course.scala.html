@@ -1,12 +1,12 @@
-@()
+@(course:ProvidedCourse)
 <div class="card">
     <div class="ui avatar image">
         <img src="@routes.Assets.versioned("/static/avatars/1.jpg")">
     </div>
     <div class="content">
-        <div class="header">Object Oriented Design</div>
+        <div class="header">@course.getCourse.title</div>
         <div class="meta">
-            <a>Sobhan foroughi</a>
+            <a>@course.getTeacher.getName</a>
         </div>
         <div class="description">
         </div>

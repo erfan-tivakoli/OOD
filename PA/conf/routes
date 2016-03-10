@@ -23,3 +23,7 @@ GET    /home                        controllers.HomeController.home
 
 #GET    /init                        controllers.HomeController.init
 
+
+GET /test                           controllers.HomeController.test
+GET /duplicate                      controllers.HomeController.duplicate
+GET /course_profile/:id             controllers.HomeController

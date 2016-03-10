@@ -1,26 +1,29 @@
 package controllers;
 
+import actions.ActionAuthenticator;
 import com.avaje.ebean.Ebean;
 <<<<<<< HEAD
-import com.sun.java.util.jar.pack.*;
-import models.Person;
-import play.api.mvc.MultipartFormData;
-import play.data.Form;
-=======
 import models.Manager;
+import models.Person;
+import models.ProvidedCourse;
 import models.Teacher;
+import com.sun.java.util.jar.pack.*;
+import org.h2.engine.User;
+//import play.api.i18n.Messages;
+import play.i18n.Messages;
+import play.api.mvc.MultipartFormData;
+//import play.data.Form.form;
+import static play.data.Form.form;
+=======
+import models.*;
 >>>>>>> database
 import play.mvc.*;
-
+import play.data.Form;
 import views.html.*;
 
-<<<<<<< HEAD
 import java.io.File;
-import java.util.Map;
-=======
 import java.util.Date;
 import java.util.Random;
->>>>>>> database
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -35,31 +38,28 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-<<<<<<< HEAD
-        return ok(login.render());
+        return ok(login.render(form(Login.class)));
     }
 
-    public Result loginSubmit() {
-
-        return ok(login.render());
-    }
-=======
-
-//        Teacher user = new Teacher((int)(Math.random()*10000),"1", "a", new Date());
-//        Ebean.save(user);
-        return ok(index.render());
-
+    public Result addSemesterInfoFile() {
+        return ok(add_semester_info.render());
     }
 
-    public Result addPerson() {
-//          Map datas = Form.form(Person.class).bindFromRequest().data();
-//          Person user = new Person(datas.get("userName").toString(),datas.get("password").toString(),
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result home(){
+        String id = session().get("id");
+//        System.out.println("Id is :   "+id);
+        Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
+//        ProvidedCourse[] courses = ProvidedCourse.find
+        return ok(main.render(person));
+    }
+//    public Result addPerson() {
+//        Map datas = Form.form(Person.class).bindFromRequest().data();
+//        Person user = new Person(datas.get("userName").toString(), datas.get("password").toString(),
 //                datas.get("name").toString(), datas.get("familyName").toString(), datas.get("emailAddress").toString());
-
-//          Ebean.save(user);
-
-        return redirect(routes.HomeController.index());
-    }
+//        Ebean.save(user);
+//        return redirect(routes.HomeController.index());
+//    }
 
     public Result addManager() {
 //        Date d = new Date();
@@ -70,38 +70,60 @@ public class HomeController extends Controller {
 //        System.out.println(manager.name);
 //        System.out.println(manager.password);
 //        Ebean.save(manager);
->>>>>>> database
 
-    public Result addSemesterInfoFile() {
-        return ok(add_semester_info.render());
+        return redirect(routes.HomeController.index());
     }
-    public Result home(){
-        return ok(main.render());
-    }
-    public play.mvc.Result getSemesterFile() {
+
+    public play.mvc.Result init(){
         play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
         play.mvc.Http.MultipartFormData.FilePart filePart = body.getFile("info");
         if (filePart != null) {
             String fileName = filePart.getFilename();
             String contentType = filePart.getContentType();
             java.io.File file = (File) filePart.getFile();
-            return ok("File uploaded");
+            Manager.initializeSemester(file);
+            return redirect(routes.HomeController.index());
         } else {
             flash("error", "Missing file");
             return badRequest();
         }
     }
-//    public Result addPerson() {
-//        Map datas = Form.form(Person.class).bindFromRequest().data();
-//        Person user = new Person(datas.get("userName").toString(), datas.get("password").toString(),
-//                datas.get("name").toString(), datas.get("familyName").toString(), datas.get("emailAddress").toString());
-//        Ebean.save(user);
-//        return redirect(routes.HomeController.index());
-//    }
 
-    public Result init(){
-        Manager.initializeSemester("/Users/Rfun/Downloads/source.xlsx");
+public static class Login{
+    public int id;
+    public String password;
+
+    public String validate(){
+        System.out.println("====================2======================");
+        Person person = null;
+        person = Person.authenticate(id, password);
+        if (person == null)
+            return Messages.get("invalid.user.or.password");
+        else
+            return null;
+    }
+}
+    public Result authenticate() {
+        System.out.println("==========================================");
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
+//        Form<Register> registerForm = form(Register.class);
+        if (loginForm.hasErrors()) {
+            return null;//badRequest(index.render(registerForm, loginForm));
+        } else {
+            session("id", loginForm.get().id + "");
+            return redirect(routes.HomeController.home());
+        }
+    }
+
+    public Result test(){
+        Student st = (Student) Person.find.byId(87100345);
+        for (ProvidedCourse course : st.getcurrentCourses()){
+            System.err.println("=========");
+            System.err.println(course.getCourse().title);
+        }
         return redirect(routes.HomeController.index());
     }
 
+
 }
+

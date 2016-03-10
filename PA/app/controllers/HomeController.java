@@ -2,23 +2,21 @@ package controllers;
 
 import actions.ActionAuthenticator;
 import com.avaje.ebean.Ebean;
-import models.Manager;
-import models.Person;
-import models.ProvidedCourse;
-import models.Teacher;
-import com.sun.java.util.jar.pack.*;
-import org.h2.engine.User;
+import models.*;
 //import play.api.i18n.Messages;
-import play.i18n.Messages;
-import play.api.mvc.MultipartFormData;
-//import play.data.Form.form;
-import static play.data.Form.form;
 import play.mvc.*;
 import play.data.Form;
 import views.html.*;
+import play.i18n.Messages;
+
+import javax.persistence.DiscriminatorValue;
+
+import static play.data.Form.form;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -46,16 +44,28 @@ public class HomeController extends Controller {
         String id = session().get("id");
 //        System.out.println("Id is :   "+id);
         Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
-//        ProvidedCourse[] courses = ProvidedCourse.find
-        return ok(main.render(person));
+
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+//        System.out.println(val.value());
+//        ArrayList<ProvidedCourse> courses = person.
+        System.out.print(type);
+
+        if(type.equals("Student")){
+            List<ProvidedCourse> courseList = ((Student)person).getcurrentCourses();
+            return ok(main.render(person, courseList));
+        }
+        return null;
     }
-//    public Result addPerson() {
-//        Map datas = Form.form(Person.class).bindFromRequest().data();
-//        Person user = new Person(datas.get("userName").toString(), datas.get("password").toString(),
+
+    public Result addPerson() {
+//          Map datas = Form.form(Person.class).bindFromRequest().data();
+//          Person user = new Person(datas.get("userName").toString(),datas.get("password").toString(),
 //                datas.get("name").toString(), datas.get("familyName").toString(), datas.get("emailAddress").toString());
-//        Ebean.save(user);
-//        return redirect(routes.HomeController.index());
-//    }
+
+//          Ebean.save(user);
+
+        return redirect(routes.HomeController.index());
+    }
 
     public Result addManager() {
 //        Date d = new Date();
@@ -84,6 +94,17 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
+    public Result test(){
+        Student st = (Student) Person.find.byId(87100345);
+        for (ProvidedCourse course : st.getcurrentCourses()){
+            System.err.println("=========");
+            System.err.println(course.getCourse().title);
+        }
+        return redirect(routes.HomeController.index());
+    }
+    public Result duplicate(){
+        return ok(duplicate_description.render());
+    }
 
 public static class Login{
     public int id;
@@ -101,7 +122,7 @@ public static class Login{
 }
     public Result authenticate() {
         System.out.println("==========================================");
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 //        Form<Register> registerForm = form(Register.class);
         if (loginForm.hasErrors()) {
             return null;//badRequest(index.render(registerForm, loginForm));

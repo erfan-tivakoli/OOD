@@ -22,8 +22,8 @@ public class Course extends Model {
         this.credits = credits;
     }
 
-    public static Finder<String,Course> find = new Finder<String, Course>(
-            String.class, Course.class
+    public static Finder<Integer,Course> find = new Finder<Integer, Course>(
+            Integer.class, Course.class
     );
 
 }

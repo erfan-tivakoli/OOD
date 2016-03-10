@@ -63,4 +63,8 @@ public class ProvidedCourse extends Model {
     public Course getCourse(){
         return this.course;
     }
+
+    public Teacher getTeacher(){
+        return this.teacher;
+    }
 }

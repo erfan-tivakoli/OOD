@@ -13,9 +13,6 @@ public class Message extends Model{
     @GeneratedValue
     public int id;
 
-//    @ManyToOne
-//    public Inbox inbox;
-
     String body;
     Person sender;
     Date date;
