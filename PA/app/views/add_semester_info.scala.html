@@ -16,7 +16,7 @@
             <div class="six wide column"></div>
             <div class="four wide column">
                 <div class="sixteen wide column">
-                @helper.form(action = routes.HomeController.getSemesterFile(),'enctype -> "multipart/form-data", 'class->"ui form segment"){
+                @helper.form(action = routes.HomeController.init(),'enctype -> "multipart/form-data", 'class->"ui form segment"){
                     <div class="field">
                         <label>Semester file</label>
                         <input id="user_field" type="file" name="info">

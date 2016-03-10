@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import java.io.File;
 import java.util.Date;
 import java.util.Map;
 
@@ -16,8 +17,8 @@ public class Manager extends Person {
         );
     }
 
-    public static void initializeSemester(String sourceFilePath){
-        Map<String, String[][]> sheets =Parser.xlsxParse(sourceFilePath);
+    public static void initializeSemester(File file ){
+        Map<String, String[][]> sheets =Parser.xlsxParse(file);
 
         for (Map.Entry<String, String[][]> entry : sheets.entrySet())
         {

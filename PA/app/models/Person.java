@@ -33,6 +33,15 @@ public abstract class Person extends Model {
         this.inbox = new Inbox(id);
 
     }
+    public static Finder<Integer, Person> find = new Finder<Integer, Person>(
+            Integer.class, Person.class
+    );
+    public static Person authenticate(int id, String password){
+        System.out.println("==========================================");
+
+        return find.where().eq("id", id).eq("password", password).findUnique();
+
+    }
 
 
 }

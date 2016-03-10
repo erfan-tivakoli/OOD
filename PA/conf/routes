@@ -4,7 +4,7 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
-POST    /                           controllers.HomeController.loginSubmit
+POST    /                           controllers.HomeController.authenticate
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
@@ -16,11 +16,10 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 #In this method we can add person to the database
 GET    /addManager                  controllers.HomeController.addManager
 
-GET    /add_semester                controllers.HomeController.addSemesterInfoFile
-POST   /add_semester                controllers.HomeController.getSemesterFile
+GET    /init                        controllers.HomeController.addSemesterInfoFile
+POST   /init                        controllers.HomeController.init
 GET    /home                        controllers.HomeController.home
 #In this method we can add person to the database
-GET    /addPerson                  controllers.HomeController.addPerson
 
-GET    /init                        controllers.HomeController.init
+#GET    /init                        controllers.HomeController.init
 

@@ -2,12 +2,17 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.Manager;
+import models.Person;
 import models.Teacher;
 import com.sun.java.util.jar.pack.*;
+import org.h2.engine.User;
+//import play.api.i18n.Messages;
+import play.i18n.Messages;
 import play.api.mvc.MultipartFormData;
-import play.data.Form;
+//import play.data.Form.form;
+import static play.data.Form.form;
 import play.mvc.*;
-
+import play.data.Form;
 import views.html.*;
 
 import java.io.File;
@@ -27,12 +32,7 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(login.render());
-    }
-
-    public Result loginSubmit() {
-
-        return ok(login.render());
+        return ok(login.render(form(Login.class)));
     }
 
     public Result addSemesterInfoFile() {
@@ -40,19 +40,6 @@ public class HomeController extends Controller {
     }
     public Result home(){
         return ok(main.render());
-    }
-    public play.mvc.Result getSemesterFile() {
-        play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
-        play.mvc.Http.MultipartFormData.FilePart filePart = body.getFile("info");
-        if (filePart != null) {
-            String fileName = filePart.getFilename();
-            String contentType = filePart.getContentType();
-            java.io.File file = (File) filePart.getFile();
-            return ok("File uploaded");
-        } else {
-            flash("error", "Missing file");
-            return badRequest();
-        }
     }
 //    public Result addPerson() {
 //        Map datas = Form.form(Person.class).bindFromRequest().data();
@@ -75,9 +62,49 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.index());
     }
 
-    public Result init(){
-        Manager.initializeSemester("/Users/Rfun/Downloads/source.xlsx");
-        return redirect(routes.HomeController.index());
+    public play.mvc.Result init(){
+        play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
+        play.mvc.Http.MultipartFormData.FilePart filePart = body.getFile("info");
+        if (filePart != null) {
+            String fileName = filePart.getFilename();
+            String contentType = filePart.getContentType();
+            java.io.File file = (File) filePart.getFile();
+            Manager.initializeSemester(file);
+            return redirect(routes.HomeController.index());
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
+    }
+
+public static class Login{
+    public int id;
+    public String password;
+
+    public String validate(){
+        System.out.println("====================2======================");
+
+        Person person = null;
+        person = Person.authenticate(id, password);
+        if (person == null)
+            return Messages.get("invalid.user.or.password");
+
+        else
+            return null;
+
+    }
+}
+    public Result authenticate() {
+        System.out.println("==========================================");
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
+//        Form<Register> registerForm = form(Register.class);
+        if (loginForm.hasErrors()) {
+            return null;//badRequest(index.render(registerForm, loginForm));
+        } else {
+            session("id", loginForm.get().id + "");
+            return home();
+        }
     }
 
 }
+
