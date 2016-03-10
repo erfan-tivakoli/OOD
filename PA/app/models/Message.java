@@ -10,7 +10,11 @@ import java.util.Date;
 public class Message extends Model{
 
     @Id
+    @GeneratedValue
     public int id;
+
+//    @ManyToOne
+//    public Inbox inbox;
 
     String body;
     Person sender;

@@ -1,8 +1,10 @@
 package controllers;
 
+import actions.ActionAuthenticator;
 import com.avaje.ebean.Ebean;
 import models.Manager;
 import models.Person;
+import models.ProvidedCourse;
 import models.Teacher;
 import com.sun.java.util.jar.pack.*;
 import org.h2.engine.User;
@@ -38,8 +40,14 @@ public class HomeController extends Controller {
     public Result addSemesterInfoFile() {
         return ok(add_semester_info.render());
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result home(){
-        return ok(main.render());
+        String id = session().get("id");
+//        System.out.println("Id is :   "+id);
+        Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
+//        ProvidedCourse[] courses = ProvidedCourse.find
+        return ok(main.render(person));
     }
 //    public Result addPerson() {
 //        Map datas = Form.form(Person.class).bindFromRequest().data();
@@ -83,15 +91,12 @@ public static class Login{
 
     public String validate(){
         System.out.println("====================2======================");
-
         Person person = null;
         person = Person.authenticate(id, password);
         if (person == null)
             return Messages.get("invalid.user.or.password");
-
         else
             return null;
-
     }
 }
     public Result authenticate() {
@@ -102,7 +107,7 @@ public static class Login{
             return null;//badRequest(index.render(registerForm, loginForm));
         } else {
             session("id", loginForm.get().id + "");
-            return home();
+            return redirect(routes.HomeController.home());
         }
     }
 

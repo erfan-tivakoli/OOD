@@ -15,21 +15,24 @@ create table inbox (
   constraint pk_inbox primary key (id)
 );
 
-create table manager (
-  id                            serial not null,
-  password                      varchar(255),
-  name                          varchar(255),
-  birth_date                    timestamp,
-  inbox_id                      integer,
-  constraint uq_manager_inbox_id unique (inbox_id),
-  constraint pk_manager primary key (id)
-);
-
 create table message (
   id                            serial not null,
   body                          varchar(255),
   date                          timestamp,
   constraint pk_message primary key (id)
+);
+
+create table person (
+  dtype                         varchar(10) not null,
+  id                            serial not null,
+  password                      varchar(255),
+  name                          varchar(255),
+  birth_date                    timestamp,
+  inbox_id                      integer,
+  level                         integer,
+  constraint ck_person_level check (level in (0)),
+  constraint uq_person_inbox_id unique (inbox_id),
+  constraint pk_person primary key (id)
 );
 
 create table provided_course (
@@ -44,44 +47,18 @@ create table provided_course (
   constraint pk_provided_course primary key (id)
 );
 
-create table student (
-  id                            serial not null,
-  password                      varchar(255),
-  name                          varchar(255),
-  birth_date                    timestamp,
-  inbox_id                      integer,
-  constraint uq_student_inbox_id unique (inbox_id),
-  constraint pk_student primary key (id)
-);
+alter table person add constraint fk_person_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 
-create table teacher (
-  id                            serial not null,
-  password                      varchar(255),
-  name                          varchar(255),
-  birth_date                    timestamp,
-  inbox_id                      integer,
-  level                         integer,
-  constraint ck_teacher_level check (level in (0)),
-  constraint uq_teacher_inbox_id unique (inbox_id),
-  constraint pk_teacher primary key (id)
-);
-
-alter table manager add constraint fk_manager_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
-
-alter table provided_course add constraint fk_provided_course_teacher_id foreign key (teacher_id) references teacher (id) on delete restrict on update restrict;
+alter table provided_course add constraint fk_provided_course_teacher_id foreign key (teacher_id) references person (id) on delete restrict on update restrict;
 create index ix_provided_course_teacher_id on provided_course (teacher_id);
 
 alter table provided_course add constraint fk_provided_course_course_course_no foreign key (course_course_no) references course (course_no) on delete restrict on update restrict;
 create index ix_provided_course_course_course_no on provided_course (course_course_no);
 
-alter table student add constraint fk_student_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
-
-alter table teacher add constraint fk_teacher_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
-
 
 # --- !Downs
 
-alter table manager drop constraint if exists fk_manager_inbox_id;
+alter table person drop constraint if exists fk_person_inbox_id;
 
 alter table provided_course drop constraint if exists fk_provided_course_teacher_id;
 drop index if exists ix_provided_course_teacher_id;
@@ -89,21 +66,13 @@ drop index if exists ix_provided_course_teacher_id;
 alter table provided_course drop constraint if exists fk_provided_course_course_course_no;
 drop index if exists ix_provided_course_course_course_no;
 
-alter table student drop constraint if exists fk_student_inbox_id;
-
-alter table teacher drop constraint if exists fk_teacher_inbox_id;
-
 drop table if exists course cascade;
 
 drop table if exists inbox cascade;
 
-drop table if exists manager cascade;
-
 drop table if exists message cascade;
 
+drop table if exists person cascade;
+
 drop table if exists provided_course cascade;
-
-drop table if exists student cascade;
-
-drop table if exists teacher cascade;
 

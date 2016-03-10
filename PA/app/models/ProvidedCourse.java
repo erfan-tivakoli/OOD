@@ -38,7 +38,7 @@ public class ProvidedCourse extends Model {
         }
         this.course = course;
 
-        Teacher teacher =  Teacher.find.where().eq("id", teacherID).findUnique();
+        Teacher teacher =  (Teacher)Person.find.byId(teacherID);
 
         if (teacher == null) {
             System.err.println("There is no teacher with id number " + teacherID);
@@ -56,8 +56,8 @@ public class ProvidedCourse extends Model {
 
     }
 
-    public static Finder<String,ProvidedCourse> find = new Finder<String,ProvidedCourse>(
-            String.class, ProvidedCourse.class
+    public static Finder<Integer,ProvidedCourse> find = new Finder<Integer,ProvidedCourse>(
+            Integer.class, ProvidedCourse.class
     );
 
     public Course getCourse(){
