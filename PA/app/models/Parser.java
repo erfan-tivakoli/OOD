@@ -162,7 +162,9 @@ public class Parser {
                 else{
                     try {
                         student.addCurrentCourse(providedCourse);
+                        providedCourse.addStudent(student);
                         Ebean.update(student);
+                        Ebean.update(providedCourse);
                     } catch (Exception e) {
                         System.err.println("in course-student");
                         System.err.println(e);

@@ -38,6 +38,9 @@ public class Student extends Person{
         }
     }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> database
 }

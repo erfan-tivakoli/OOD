@@ -69,6 +69,10 @@ public class ProvidedCourse extends Model {
         return this.course;
     }
 
+<<<<<<< HEAD
+    public Teacher getTeacher(){
+        return this.teacher;
+=======
     public List<Student> getStudents() {
         return this.students;
     }
@@ -77,7 +81,6 @@ public class ProvidedCourse extends Model {
         if(!(this.students.contains(student))){
             this.students.add(student);
         }
-    public Teacher getTeacher(){
-        return this.teacher;
+>>>>>>> database
     }
 }

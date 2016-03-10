@@ -28,6 +28,8 @@ public class Teacher extends Person {
     //TODO: to check this course was not present in the list
     public void addCurrentCourse(ProvidedCourse currentCourse) {
 
+<<<<<<< HEAD
+=======
         if (!allCourses.contains(currentCourse)){
             this.currentCourses.add(currentCourse);
             this.allCourses.add(currentCourse);
@@ -35,6 +37,7 @@ public class Teacher extends Person {
     }
 
 
+>>>>>>> database
 
 
     public ArrayList<ProvidedCourse> getCurrentCourses() {
