@@ -1,13 +1,11 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Map;
 
 @Entity
+@DiscriminatorValue("Manager")
 public class Manager extends Person {
 
     public Manager(int id, String password, String name, Date birthDate){
@@ -21,13 +19,13 @@ public class Manager extends Person {
 
         for (Map.Entry<String, String[][]> entry : sheets.entrySet())
         {
-            System.out.println("====================");
-            System.out.println(entry.getKey());
+            System.err.println("====================");
+            System.err.println(entry.getKey());
             for (int i = 0 ; i < entry.getValue().length ; i++)
             {
                 String[] row = entry.getValue()[i];
                 for (int j = 0 ; j < row.length ; j++){
-                    System.out.println(entry.getValue()[i][j]);
+                    System.err.println(entry.getValue()[i][j]);
                 }
             }
 
@@ -38,14 +36,14 @@ public class Manager extends Person {
 
     }
 
-    public static Finder<String,Manager> find = new Finder<String,Manager>(
-            String.class, Manager.class
-    );
-
-    public static Manager authenticate(int id, String password) {
-        return find.where().eq("id", id)
-                .eq("password", password).findUnique();
-
-    }
+//    public static Finder<Integer,Manager> find = new Finder<Integer, Manager>(
+//            Integer.class, Manager.class
+//    );
+//
+//    public static Manager authenticate(int id, String password) {
+//        return find.where().eq("id", id)
+//                .eq("password", password).findUnique();
+//
+//    }
 
 }

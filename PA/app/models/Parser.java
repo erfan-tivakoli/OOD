@@ -7,11 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,14 +67,21 @@ public class Parser {
         //TODO:correct the date format
         for (int i = 0; i < Students.length; i++) {
             if (!(Students[i][0].equals("empty"))) {
-                Student student = Student.find.where().eq("id", Double.valueOf(Students[i][0]).intValue()).findUnique();
-                if (student == null) {
-                    int id = Double.valueOf(Students[i][0]).intValue();
-                    String name = Students[i][1];
-                    String password = Students[i][2];
+                int id = Double.valueOf(Students[i][0]).intValue();
+                System.err.println("before find");
+                Student student = (Student) Person.find.byId(id);
+                System.err.println("after find");
+                String name = Students[i][1];
+                String password = Students[i][2];
 
-                    student = new Student(id, name, password, new Date());
+
+                if (student == null) {
+                    student = new Student(id,  password, name, new Date());
                     Ebean.save(student);
+                } else {
+                    student.setName(name);
+                    student.setPassword(password);
+                    Ebean.update(student);
                 }
 
             }
@@ -86,55 +89,61 @@ public class Parser {
 
         //Create Teachers
         for (int i = 0; i < Teachers.length; i++) {
-            System.out.println("Came in Teacher");
-            if (!Teachers[i][0].equals("empty")) {
-                Teacher teacher = Teacher.find.where().eq("id", Double.valueOf(Teachers[i][0]).intValue()).findUnique();
+            if (!(Teachers[i][0].equals("empty"))) {
+                int id = Double.valueOf(Teachers[i][0]).intValue();
+                Teacher teacher = (Teacher) Person.find.byId(id);
+                String name = Teachers[i][1];
+                String password = Students[i][2];
+
+
                 if (teacher == null) {
-                    int id = Double.valueOf(Teachers[i][0]).intValue();
-                    String name = Teachers[i][1];
-                    String password = Teachers[i][2];
-
-                    teacher = new Teacher(id, name, password, new Date());
-
+                    teacher = new Teacher(id,  password , name, new Date());
                     Ebean.save(teacher);
+                } else {
+                    System.err.println("We are updating the Teacher with ID : " + id);
+                    teacher.setName(name);
+                    teacher.setPassword(password);
+                    Ebean.update(teacher);
                 }
-                //TODO:add the update phase
             }
         }
 
         //Create Course-Teacher relation
         //TODO : we suppose that all the teachers that appear here are already in db
         for (int i = 0; i < CourseTeacher.length; i++) {
-            System.out.println("Came in Teacher-Course");
             if (!(CourseTeacher[i][0].equals("empty"))) {
 
                 int id = Double.valueOf(CourseTeacher[i][0]).intValue();
                 ProvidedCourse providedCourse = ProvidedCourse.find.where().eq("id", id).findUnique();
+                int teacherID = Double.valueOf(CourseTeacher[i][3]).intValue();
+                Teacher teacher = (Teacher) Person.find.byId(teacherID);
 
-                if (providedCourse == null){
-                    try {
-                        int courseNo = Double.valueOf(CourseTeacher[i][1]).intValue();
-                        String title = CourseTeacher[i][2];
-                        int teacherID = Double.valueOf(CourseTeacher[i][3]).intValue();
-                        String time = CourseTeacher[i][4];
-                        Date finalExamTime = new Date();
-                        String semester = CourseTeacher[i][6];
-                        int groupID = Double.valueOf(CourseTeacher[i][7]).intValue();
-                        String room = CourseTeacher[i][8];
+                if (teacher == null) {
+                    System.err.println("The teacher with ID " + teacherID + " Doesn't exist! We are omitting this row");
+                } else {
+                    if (providedCourse == null) {
+                        try {
+                            int courseNo = Double.valueOf(CourseTeacher[i][1]).intValue();
+                            String title = CourseTeacher[i][2];
+                            String time = CourseTeacher[i][4];
+                            Date finalExamTime = new Date();
+                            String semester = CourseTeacher[i][6];
+                            int groupID = Double.valueOf(CourseTeacher[i][7]).intValue();
+                            String room = CourseTeacher[i][8];
 
-                        providedCourse = new ProvidedCourse(id, courseNo, title, time, finalExamTime, teacherID, semester,
-                                groupID, room, 3);
-                        Ebean.save(providedCourse);
+                            providedCourse = new ProvidedCourse(id, courseNo, title, time, finalExamTime, teacherID, semester,
+                                    groupID, room, 3);
+                            Ebean.save(providedCourse);
 
-                        Teacher teacher = Teacher.find.where().eq("id", teacherID).findUnique();
+                            teacher.addCurrentCourse(providedCourse);
+                            Ebean.update(teacher);
 
-                        teacher.addCurrentCourse(providedCourse);
-                        Ebean.update(teacher);
-
-                    } catch (Exception e) {
-                        System.out.println("Problem in initializing the datas");
-                        System.out.println(e);
+                        } catch (Exception e) {
+                            System.err.println("in course-teacher");
+                            System.err.println(e);
+                        }
                     }
+
                 }
 
             }
@@ -142,22 +151,24 @@ public class Parser {
 
         //Create Course-Student relation
         for (int i = 0; i < StudentCourse.length; i++) {
-            System.out.println("Came in Student-Course");
             if (!(StudentCourse[i][0].equals("empty"))) {
                 int studentID = Double.valueOf(StudentCourse[i][1]).intValue();
                 int providedCourseId = Double.valueOf(StudentCourse[i][0]).intValue();
-                Student student;
-                ProvidedCourse providedCourse ;
+                Student student = (Student) Person.find.byId(studentID);
+                ProvidedCourse providedCourse=ProvidedCourse.find.byId(providedCourseId);
 
-                try {
-                    student = Student.find.where().eq("Id", studentID).findUnique();
-                    providedCourse = ProvidedCourse.find.where().eq("id", providedCourseId).findUnique();
-                    student.addCurrentCourse(providedCourse);
-                    Ebean.update(student);
-                } catch (Exception e) {
-                    System.out.println(e);
+                if (student==null || providedCourse==null){
+                    System.err.println("One of student " + studentID + "or provided course ID "+providedCourseId+" is null");
                 }
-
+                else{
+                    try {
+                        student.addCurrentCourse(providedCourse);
+                        Ebean.update(student);
+                    } catch (Exception e) {
+                        System.err.println("in course-student");
+                        System.err.println(e);
+                    }
+                }
             }
         }
 

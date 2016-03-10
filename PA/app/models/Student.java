@@ -1,13 +1,11 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 
 @Entity
+@DiscriminatorValue("Student")
 public class Student extends Person{
 
     private ArrayList<ProvidedCourse> currentCourses;
@@ -16,8 +14,10 @@ public class Student extends Person{
     public Student(int id, String password, String name, Date birthDate){
 
         super(id, password, name, birthDate);
-        currentCourses = new ArrayList<>();
-        allCourses = new ArrayList<>();
+        this.currentCourses = new ArrayList<>();
+        this.allCourses = new ArrayList<>();
+        System.err.println("*****");
+        System.err.println("student constructor" + currentCourses.size());
     }
 
     public ArrayList<ProvidedCourse> getAllCourses(){
@@ -29,16 +29,17 @@ public class Student extends Person{
     }
 
     public void addCurrentCourse(ProvidedCourse providedCourse){
+
         this.currentCourses.add(providedCourse);
         this.allCourses.add(providedCourse);
     }
 
-    public static Finder<String,Student> find = new Finder<String,Student>(
-            String.class, Student.class
-    );
+//    public static Finder<Integer,Student> find = new Finder<Integer,Student>(
+//            Integer.class, Student.class
+//    );
 
-    public static Student authenticate(int id, String password) {
-        return find.where().eq("id", id)
-                .eq("password", password).findUnique();
-    }
+//    public static Student authenticate(int id, String password) {
+//        return find.where().eq("id", id)
+//                .eq("password", password).findUnique();
+//    }
 }
