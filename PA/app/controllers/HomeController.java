@@ -1,8 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Manager;
-import models.Teacher;
+import models.*;
 import play.mvc.*;
 
 import views.html.*;
@@ -57,5 +56,15 @@ public class HomeController extends Controller {
         Manager.initializeSemester("/Users/Rfun/Downloads/source.xlsx");
         return redirect(routes.HomeController.index());
     }
+
+    public Result test(){
+        Student st = (Student) Person.find.byId(87100345);
+        for (ProvidedCourse course : st.getcurrentCourses()){
+            System.err.println("=========");
+            System.err.println(course.getCourse().title);
+        }
+        return redirect(routes.HomeController.index());
+    }
+
 
 }

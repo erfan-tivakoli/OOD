@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name = "Role")
 public abstract class Person extends Model {
     @Id
     private int id;
@@ -33,6 +34,8 @@ public abstract class Person extends Model {
         this.name = name;
         this.birthDate = birthDate;
         this.inbox = new Inbox(id);
+        inbox.save();
+
     }
 
 

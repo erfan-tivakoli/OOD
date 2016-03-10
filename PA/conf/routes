@@ -20,3 +20,5 @@ GET    /addPerson                  controllers.HomeController.addPerson
 
 GET    /init                        controllers.HomeController.init
 
+
+GET /test                           controllers.HomeController.test

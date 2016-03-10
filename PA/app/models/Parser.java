@@ -76,6 +76,7 @@ public class Parser {
 
 
                 if (student == null) {
+                    System.err.println("came in if");
                     student = new Student(id,  password, name, new Date());
                     Ebean.save(student);
                 } else {
@@ -114,7 +115,7 @@ public class Parser {
             if (!(CourseTeacher[i][0].equals("empty"))) {
 
                 int id = Double.valueOf(CourseTeacher[i][0]).intValue();
-                ProvidedCourse providedCourse = ProvidedCourse.find.where().eq("id", id).findUnique();
+                ProvidedCourse providedCourse = ProvidedCourse.find.byId(id);
                 int teacherID = Double.valueOf(CourseTeacher[i][3]).intValue();
                 Teacher teacher = (Teacher) Person.find.byId(teacherID);
 
@@ -158,7 +159,7 @@ public class Parser {
                 ProvidedCourse providedCourse=ProvidedCourse.find.byId(providedCourseId);
 
                 if (student==null || providedCourse==null){
-                    System.err.println("One of student " + studentID + "or provided course ID "+providedCourseId+" is null");
+                    System.err.println("One of student " + studentID + " or provided course ID "+providedCourseId+" is null");
                 }
                 else{
                     try {
