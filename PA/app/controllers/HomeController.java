@@ -255,10 +255,26 @@ public static class Login{
     }
     @Security.Authenticated(ActionAuthenticator.class)
     public Result submitGrade(int courseId, int gradableId){
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+        System.out.println("yes heree");
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseId);
         DynamicForm requestData = form().bindFromRequest();
         System.out.println(requestData.data());
+        Map<String, String> data = requestData.data();
+        Gradable gable = Gradable.find.byId(gradableId);
+        ArrayList<Grade> grades =new ArrayList<Grade>();
+        for(Map.Entry<String, String> item: data.entrySet()){
+            Grade g = new Grade(Integer.parseInt(item.getKey()), Double.parseDouble(item.getValue()));
+            grades.add(g);
+        }
+        gable.setGrades(grades);
+        gable.save();
 
-        return null;
+
+
+        return ok(course_profile.render(pc, type));
     }
     @Security.Authenticated(ActionAuthenticator.class)
     public Result addGradable(int courseId) {

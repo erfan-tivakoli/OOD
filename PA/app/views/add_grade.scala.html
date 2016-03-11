@@ -26,26 +26,29 @@
                         </div>
                     </div>
 
-
+                    @for(student<-students){
+                        <input value="@student.getId">
+                        <input name="@student.getId" >
+                    }
                     <div class='main'>
-                        <table class="heavyTable">
-                            <thead>
-                                <tr>
-                                    <th>Student</th>
-                                    <th>Row grade</th>
-                                    <th class="hide_penalty">Penalty</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table_body">
-                            @for(student <- students) {
-                                <tr>
-                                    <td name="student_id_@student.getId">@student.getId</td>
-                                    <td name="grade_@student.getId"></td>
-                                </tr>
-                            }
-                            </tbody>
-                        </table>
-                        <a href="#" style="color : #00918b ; " id="add_column"><i class="add icon"></i></a>
+                        @*<table class="heavyTable">*@
+                            @*<thead>*@
+                                @*<tr>*@
+                                    @*<th>Student</th>*@
+                                    @*<th>Row grade</th>*@
+                                    @*<th class="hide_penalty">Penalty</th>*@
+                                @*</tr>*@
+                            @*</thead>*@
+                            @*<tbody id="table_body">*@
+@*//                            @for(student <- students) {*@
+//                                @*<tr>*@
+                                    @*<td name="student_id_@student.getId">@student.getId</td>*@
+                                    @*<td name="grade_@student.getId"></td>*@
+                                @*</tr>*@
+                            @*}*@
+                            @*</tbody>*@
+                        @*</table>*@
+                        @*<a href="#" style="color : #00918b ; " id="add_column"><i class="add icon"></i></a>*@
                     </div>
                     <div class="ui grid">
                         <div class="seven wide column"></div>

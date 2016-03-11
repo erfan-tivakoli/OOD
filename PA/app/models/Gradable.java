@@ -44,6 +44,10 @@ public class Gradable extends Model {
         this.grades = grades;
 
     }
+    public static Finder<Integer,Gradable> find = new Finder<Integer,Gradable>(
+            Integer.class, Gradable.class
+    );
+
 
 
 }
