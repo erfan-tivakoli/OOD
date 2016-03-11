@@ -1,0 +1,54 @@
+@(person: Person, messages:List[Message])
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        @base.base_static()
+        <title></title>
+        </head>
+    <body>
+        @base.sidebar()
+        <div class="ui grid">
+            <div class="ui row">
+                <div class="sixteen wide column"></div>
+            </div>
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                <div class="ui styled accordion">
+                    @for(message<-messages){
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            @message.getSender.getName @message.getSender.getId
+                        </div>
+                        <div class="content">
+                            <p>@message.getBody</p>
+                            <p>@message.getDate</p>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="three wide column">
+                @helper.form(action = routes.HomeController.sendMessage()){
+                        <label>Receiver</label>
+                        <input name="receiver">
+                        <label>Body</label>
+                        <textarea style="margin-top: 0px; margin-bottom: 0px; height: 155px; width:266px;"name="body"></textarea>
+                    <div class="ui field" style="display : none ;">
+                        <label>sender</label>
+                        <input name="sender" value="@person.getId">
+                    </div>
+                    <input type="submit" class="ui button green submit">
+
+                }
+            </div>
+            <div class="two wide column"></div>
+        </div>
+    </body>
+    <script>
+            $('.ui.accordion')
+              .accordion()
+            ;
+        </script>
+</html>

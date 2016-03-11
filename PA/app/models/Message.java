@@ -14,7 +14,33 @@ public class Message extends Model{
     public int id;
 
     String body;
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public Person getSender() {
+        return sender;
+    }
+
+    public void setSender(Person sender) {
+        this.sender = sender;
+    }
+    @ManyToOne(cascade = CascadeType.ALL)
     Person sender;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     Date date;
 
     public Message(String body, Person sender, Date date){

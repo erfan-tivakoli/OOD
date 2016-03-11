@@ -108,6 +108,8 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result courseProfile(int id){
         String userid = session().get("id");
         Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
@@ -116,6 +118,8 @@ public class HomeController extends Controller {
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
         return ok(course_profile.render(pc,type));
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result setRes(int courseid){
         ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
         String userid = session().get("id");
@@ -125,6 +129,8 @@ public class HomeController extends Controller {
         return ok(resources.render(pc, type, syll.getSources()));
 
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result submitRes(int courseid){
         ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
         DynamicForm requestData = form().bindFromRequest();
@@ -142,11 +148,15 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.setRes(pc.id));
 
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result duplicate(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
         List<ProvidedCourse> courses = ProvidedCourse.getPrevCourses(pc.getCourse());
         return ok(duplicate_description.render(courses));
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result submitDuplicate(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
         DynamicForm requestData = form().bindFromRequest();
@@ -188,6 +198,34 @@ public static class Login{
             return null;
     }
 }
+    public Result sendMessage(){
+        DynamicForm requestData = form().bindFromRequest();
+        Map<String, String> data = requestData.data();
+        System.out.println(data);
+        String recId = data.get("receiver");
+        Person sender = Person.find.byId(Integer.parseInt(data.get("sender")));
+        Message message = new Message(data.get("body"), sender, new Date());
+        Person person = Person.find.byId(Integer.parseInt(recId));
+        try{
+            person.inbox.addToInbox(message);
+            person.inbox.save();
+        }
+        catch (Exception e){
+            return ok();
+        }
+        return redirect(routes.HomeController.inbox());
+
+    }
+    public Result inbox(){
+        String userid = session().get("id");
+        System.out.println("1");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        System.out.println("1");
+        List<Message> messages = person.inbox.getMessages();
+        System.out.println("1");
+        return ok(inbox.render(person, messages));
+
+    }
     public Result authenticate() {
         System.out.println("==========================================");
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
@@ -199,6 +237,8 @@ public static class Login{
             return redirect(routes.HomeController.home());
         }
     }
+
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result logout(){
         session().clear();
         return ok(login.render(form(Login.class)));

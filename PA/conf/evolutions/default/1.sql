@@ -19,6 +19,7 @@ create table message (
   id                            serial not null,
   inbox_id                      integer not null,
   body                          varchar(255),
+  sender_id                     integer,
   date                          timestamp,
   constraint pk_message primary key (id)
 );
@@ -91,6 +92,9 @@ create table topic (
 alter table message add constraint fk_message_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 create index ix_message_inbox_id on message (inbox_id);
 
+alter table message add constraint fk_message_sender_id foreign key (sender_id) references person (id) on delete restrict on update restrict;
+create index ix_message_sender_id on message (sender_id);
+
 alter table person add constraint fk_person_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 
 alter table person_provided_course add constraint fk_person_provided_course_person foreign key (person_id) references person (id) on delete restrict on update restrict;
@@ -126,6 +130,9 @@ create index ix_syllabes_source_source on syllabes_source (source_id);
 
 alter table message drop constraint if exists fk_message_inbox_id;
 drop index if exists ix_message_inbox_id;
+
+alter table message drop constraint if exists fk_message_sender_id;
+drop index if exists ix_message_sender_id;
 
 alter table person drop constraint if exists fk_person_inbox_id;
 

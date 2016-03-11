@@ -31,3 +31,5 @@ GET /course_profile/:id             controllers.HomeController.courseProfile(id:
 GET /course_profile/:id/resources/  controllers.HomeController.setRes(id:Integer)
 POST /course_profile/:id/resources/ controllers.HomeController.submitRes(id:Integer)
 GET /logout                        controllers.HomeController.logout
+GET /inbox                          controllers.HomeController.inbox
+POST /sendMessage                  controllers.HomeController.sendMessage
