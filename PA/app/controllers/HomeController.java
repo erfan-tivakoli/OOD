@@ -49,12 +49,24 @@ public class HomeController extends Controller {
         String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
 //        System.out.println(val.value());
 //        ArrayList<ProvidedCourse> courses = person.
-
+        List<ProvidedCourse> courseList = null;
         if(type.equals("Student")){
-            List<ProvidedCourse> courseList = ((Student)person).getCourses();
+            Student std = Student.find.byId(Integer.parseInt(id));
+            if(std != null) {
+                courseList = std.getCourses();
+            }
             System.out.println(courseList);
             System.out.println(type);
-            return ok(main.render(person, courseList));
+            return ok(main.render(std, courseList));
+        }
+        if(type.equals("Teacher")){
+            Teacher teacher = Teacher.find.byId(Integer.parseInt(id));
+            if(teacher != null) {
+                courseList = teacher.getCourses();
+            }
+            System.out.println(courseList);
+            System.out.println(type);
+            return ok(main.render(teacher, courseList));
         }
         return null;
     }
