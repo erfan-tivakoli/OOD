@@ -199,6 +199,10 @@ public static class Login{
             return redirect(routes.HomeController.home());
         }
     }
+    public Result logout(){
+        session().clear();
+        return ok(login.render(form(Login.class)));
+    }
 
 }
 

@@ -30,3 +30,4 @@ POST /duplicate/:id                     controllers.HomeController.submitDuplica
 GET /course_profile/:id             controllers.HomeController.courseProfile(id:Integer)
 GET /course_profile/:id/resources/  controllers.HomeController.setRes(id:Integer)
 POST /course_profile/:id/resources/ controllers.HomeController.submitRes(id:Integer)
+GET /logout                        controllers.HomeController.logout
