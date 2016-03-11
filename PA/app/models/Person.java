@@ -38,7 +38,6 @@ public abstract class Person extends Model {
 
     }
 
-
     public Date getBirthDate() {
         return birthDate;
     }
@@ -66,7 +65,6 @@ public abstract class Person extends Model {
 //            return  p.getPassword().equals(password) ? p : null;
 //        return null;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -78,8 +76,6 @@ public abstract class Person extends Model {
     public static Finder<Integer,Person> find = new Finder<Integer,Person>(
         Integer.class, Person.class
     );
-
-
 
 }
 

@@ -23,6 +23,8 @@ public class ProvidedCourse extends Model {
     private Course course;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student> students = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private Syllabes syllabes = new Syllabes();
 
 
     public String getSemester() {
@@ -104,7 +106,20 @@ public class ProvidedCourse extends Model {
             this.students.add(student);
         }
     }
+
+
+    public Syllabes getSyllabes(){
+        return syllabes;
+    }
+    public void setSyllabes(Syllabes syllabes){
+        this.syllabes = syllabes;
+    }
     public Teacher getTeacher(){
         return this.teacher;
     }
+    public static List<ProvidedCourse> getPrevCourses(Course course){
+        List<ProvidedCourse> courses = ProvidedCourse.find.where().eq("course", course).findList();
+        return courses;
+    }
+
 }
