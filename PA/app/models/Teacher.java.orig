@@ -16,6 +16,11 @@ public class Teacher extends Person {
     private Level level = Level.Professor;
 
     @OneToMany(cascade = CascadeType.ALL)
+<<<<<<< Updated upstream
+=======
+    private List<ProvidedCourse> currentCourses=new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+>>>>>>> Stashed changes
     private List<ProvidedCourse> allCourses=new ArrayList<>();
 
 
@@ -38,9 +43,19 @@ public class Teacher extends Person {
             Integer.class, Teacher.class
     );
 
+<<<<<<< Updated upstream
     public List<ProvidedCourse> getCourses() {
-        return allCourses;
+=======
+    public List<ProvidedCourse> getCurrentCourses() {
+        return currentCourses;
     }
 
+    public List<ProvidedCourse> getAllCourses() {
+>>>>>>> Stashed changes
+        return allCourses;
+    }
+    public static Teacher authenticate(int id, String password){
+        return find.where().eq("id", id).eq("password",password).findUnique();
+    }
 
 }

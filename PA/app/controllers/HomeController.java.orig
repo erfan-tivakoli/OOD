@@ -45,12 +45,12 @@ public class HomeController extends Controller {
         String id = session().get("id");
 //        System.out.println("Id is :   "+id);
         Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
-
         String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
 //        System.out.println(val.value());
 //        ArrayList<ProvidedCourse> courses = person.
         List<ProvidedCourse> courseList = null;
         if(type.equals("Student")){
+<<<<<<< Updated upstream
             Student std = Student.find.byId(Integer.parseInt(id));
             if(std != null) {
                 courseList = std.getCourses();
@@ -67,6 +67,11 @@ public class HomeController extends Controller {
             System.out.println(courseList);
             System.out.println(type);
             return ok(main.render(teacher, courseList));
+=======
+            Student std = (Student)Student.find.where().eq("id", Integer.parseInt(id)).findUnique();
+            List<ProvidedCourse> courseList = ((Student)person).getcurrentCourses();
+            return ok(main.render(person, courseList));
+>>>>>>> Stashed changes
         }
         return null;
     }
@@ -108,13 +113,22 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
+//    public Result test(){
+//        Student st = (Student) Person.find.byId(87100345);
+//        for (ProvidedCourse course : st.getCurrentCourses()){
+//            System.err.println("=========");
+//            System.err.println(course.getCourse().title);
+//        }
+//        return redirect(routes.HomeController.index());
+//    }
     public Result courseProfile(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
+
         return ok(course_profile.render(pc));
     }
     public Result duplicate(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
-        List<ProvidedCourse> courses = ProvidedCourse.getPrevCourses(pc.getCourse());
+        List<ProvidedCourse> courses     = ProvidedCourse.getPrevCourses(pc.getCourse());
         return ok(duplicate_description.render(courses));
     }
     public Result submitDuplicate(int id){
@@ -142,20 +156,37 @@ public class HomeController extends Controller {
         return ok();
     }
 
-
 public static class Login{
     public int id;
     public String password;
 
     public String validate(){
         System.out.println("====================2======================");
+<<<<<<< Updated upstream
+//        Person person = null;
+//        person = Person.authenticate(id, password);
+        Student student = Student.authenticate(id, password);
+        if(student != null){
+            return null;
+        }
+
+        Teacher teacher = Teacher.authenticate(id, password);
+        if(teacher != null){
+=======
         Person person = null;
         person = Person.authenticate(id, password);
         if (person == null){
             return Messages.get("invalid.user.or.password");
         }
         else
+>>>>>>> Stashed changes
             return null;
+        }
+        Manager manager = Manager.authenticate(id, password);
+        if (manager == null)
+            return Messages.get("invalid.user.or.password");
+
+        return null;
     }
 }
     public Result authenticate() {
