@@ -11,9 +11,8 @@ public class Message extends Model{
 
     @Id
     @GeneratedValue
-    public int id;
+    private int id;
 
-    String body;
 
     public String getBody() {
         return body;
@@ -30,18 +29,17 @@ public class Message extends Model{
     public void setSender(Person sender) {
         this.sender = sender;
     }
+
     @ManyToOne(cascade = CascadeType.ALL)
     Person sender;
-
-    public Date getDate() {
-        return date;
-    }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    Date date;
+
+    private String body;
+    private Date date;
 
     public Message(String body, Person sender, Date date){
         this.body = body;
@@ -49,7 +47,11 @@ public class Message extends Model{
         this.date = date;
     }
 
-    public String getContent(){
-        return this.body;
+    public int getId() {
+        return id;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

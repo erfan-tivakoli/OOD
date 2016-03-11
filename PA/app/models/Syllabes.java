@@ -48,6 +48,7 @@ public class Syllabes extends Model {
         return topic;
     }
 
+
     public void setTopic(Topic topic) {
         this.topic = topic;
     }

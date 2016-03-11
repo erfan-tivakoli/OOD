@@ -19,7 +19,7 @@ public class Teacher extends Person {
     private List<ProvidedCourse> allCourses=new ArrayList<>();
 
 
-    public Teacher(int id, String password, String name, Date birthDate) {
+    public Teacher(int id, String password, String name, String birthDate) {
         super(id, password, name, birthDate);
     }
 

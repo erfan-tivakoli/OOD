@@ -29,7 +29,7 @@ create table person (
   id                            serial not null,
   password                      varchar(255),
   name                          varchar(255),
-  birth_date                    timestamp,
+  birth_date                    varchar(255),
   inbox_id                      integer,
   level                         integer,
   constraint ck_person_level check (level in (0)),

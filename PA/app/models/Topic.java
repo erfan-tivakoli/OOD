@@ -23,6 +23,10 @@ public class Topic extends Model {
         this.description = description;
     }
 
+    public Topic(){
+
+    }
+
     public String getDescription(){
         return description;
     }
