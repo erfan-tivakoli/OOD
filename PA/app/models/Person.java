@@ -25,7 +25,7 @@ public abstract class Person extends Model {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Inbox inbox;
+    public Inbox inbox;
 
 
     public Person(int id, String password, String name, String birthDate) {

@@ -10,6 +10,23 @@ create table course (
   constraint pk_course primary key (course_no)
 );
 
+create table gradable (
+  id                            serial not null,
+  provided_course_id            integer not null,
+  date                          varchar(255),
+  baggage                       float,
+  title                         varchar(255),
+  constraint pk_gradable primary key (id)
+);
+
+create table grade (
+  id                            serial not null,
+  gradable_id                   integer not null,
+  student_id                    integer,
+  grade                         float,
+  constraint pk_grade primary key (id)
+);
+
 create table inbox (
   id                            serial not null,
   constraint pk_inbox primary key (id)
@@ -18,8 +35,8 @@ create table inbox (
 create table message (
   id                            serial not null,
   inbox_id                      integer not null,
-  body                          varchar(255),
   sender_id                     integer,
+  body                          varchar(255),
   date                          timestamp,
   constraint pk_message primary key (id)
 );
@@ -89,6 +106,12 @@ create table topic (
   constraint pk_topic primary key (id)
 );
 
+alter table gradable add constraint fk_gradable_provided_course_id foreign key (provided_course_id) references provided_course (id) on delete restrict on update restrict;
+create index ix_gradable_provided_course_id on gradable (provided_course_id);
+
+alter table grade add constraint fk_grade_gradable_id foreign key (gradable_id) references gradable (id) on delete restrict on update restrict;
+create index ix_grade_gradable_id on grade (gradable_id);
+
 alter table message add constraint fk_message_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 create index ix_message_inbox_id on message (inbox_id);
 
@@ -128,6 +151,12 @@ create index ix_syllabes_source_source on syllabes_source (source_id);
 
 # --- !Downs
 
+alter table gradable drop constraint if exists fk_gradable_provided_course_id;
+drop index if exists ix_gradable_provided_course_id;
+
+alter table grade drop constraint if exists fk_grade_gradable_id;
+drop index if exists ix_grade_gradable_id;
+
 alter table message drop constraint if exists fk_message_inbox_id;
 drop index if exists ix_message_inbox_id;
 
@@ -165,6 +194,10 @@ alter table syllabes_source drop constraint if exists fk_syllabes_source_source;
 drop index if exists ix_syllabes_source_source;
 
 drop table if exists course cascade;
+
+drop table if exists gradable cascade;
+
+drop table if exists grade cascade;
 
 drop table if exists inbox cascade;
 

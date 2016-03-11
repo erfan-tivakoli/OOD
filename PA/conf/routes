@@ -33,3 +33,7 @@ POST /course_profile/:id/resources/ controllers.HomeController.submitRes(id:Inte
 GET /logout                        controllers.HomeController.logout
 GET /inbox                          controllers.HomeController.inbox
 POST /sendMessage                  controllers.HomeController.sendMessage
+GET  /add_gradable/:courseId   controllers.HomeController.addGradable(courseId:Integer)
+POST /add_gradable/:id             controllers.HomeController.submitGradAble(id:Integer)
+GET /add_grade/:courseId/:gradableId        controllers.HomeController.addGrade(courseId:Integer, gradableId:Integer)
+POST /add_grade/:courseId/:gradableId       controllers.HomeController.submitGrade(courseId:Integer, gradableId:Integer)

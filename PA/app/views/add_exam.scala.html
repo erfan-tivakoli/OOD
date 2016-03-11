@@ -1,0 +1,57 @@
+@(pc:ProvidedCourse)
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        @base.base_static()
+        <title></title>
+    </head>
+    <body>
+        @base.sidebar()
+        <div class="ui grid">
+            <div class="ui row">
+                <div class="sixteen wide column"></div>
+            </div>
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                @helper.form(action = routes.HomeController.submitGradAble(pc.id)){
+                @*<form id="Exam_form" class="ui form" >*@
+                    <div class="required field">
+                        <label>Type</label>
+                        <input type="text" name="title"
+                        placeholder="Quiz, midterm or final">
+                    </div>
+                    <div class="required field" style="display : none ;">
+                        <label>Course</label>
+                        <input type="text" name="courseId" value="@pc.id">
+
+                    </div>
+
+                    <div class="required field">
+                        <label>*/20</label>
+                        <input type="text" name="baggage" placeholder="‌Baggage">
+                    </div>
+
+                    <div class="required field">
+                        <label>Time</label>
+                        <input type="time" name="date" placeholder="Time">
+
+                    </div>
+
+                    <button class="ui button submit" type="submit">Submit</button>
+                @*</form>*@
+                }
+            </div>
+
+            <div class="three wide column">
+                <div class="ui divided items">
+                    @base.ta_course()
+                    @base.ta_course()
+                    @base.ta_course()
+                </div>
+            </div>
+            <div class="two wide column"></div>
+        </div>
+    </body>
+</html>

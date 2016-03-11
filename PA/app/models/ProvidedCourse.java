@@ -26,6 +26,17 @@ public class ProvidedCourse extends Model {
     @OneToOne(cascade = CascadeType.ALL)
     private Syllabes syllabes = new Syllabes();
 
+    public List<Gradable> getGradables() {
+        return gradables;
+    }
+
+    public void setGradables(List<Gradable> gradables) {
+        this.gradables = gradables;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Gradable> gradables = new ArrayList<>();
+
 
     public String getSemester() {
         return semester;
@@ -106,7 +117,6 @@ public class ProvidedCourse extends Model {
             this.students.add(student);
         }
     }
-
 
     public Syllabes getSyllabes(){
         return syllabes;

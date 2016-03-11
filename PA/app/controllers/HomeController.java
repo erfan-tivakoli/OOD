@@ -43,6 +43,7 @@ public class HomeController extends Controller {
     @Security.Authenticated(ActionAuthenticator.class)
     public Result home(){
         String id = session().get("id");
+        System.out.println("im in Hommmmmmmmmmmmmmmmmmmmme");
 //        System.out.println("Id is :   "+id);
         Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
 
@@ -191,6 +192,7 @@ public static class Login{
         System.out.println("====================2======================");
         Person person = null;
         person = Person.authenticate(id, password);
+        System.out.println("================3================"+ person);
         if (person == null){
             return Messages.get("invalid.user.or.password");
         }
@@ -231,8 +233,10 @@ public static class Login{
         Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
 //        Form<Register> registerForm = form(Register.class);
         if (loginForm.hasErrors()) {
+            System.out.println("haaaaaaaasssssss errrrrrrooooooooorrrrrr");
             return null;//badRequest(index.render(registerForm, loginForm));
         } else {
+
             session("id", loginForm.get().id + "");
             return redirect(routes.HomeController.home());
         }
@@ -242,6 +246,60 @@ public static class Login{
     public Result logout(){
         session().clear();
         return ok(login.render(form(Login.class)));
+    }
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result addGrade(int courseId, int gradableId){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseId);
+        List<Student> students = pc.getStudents();
+        return  ok(add_grade.render(pc, students, gradableId));
+    }
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result submitGrade(int courseId, int gradableId){
+        DynamicForm requestData = form().bindFromRequest();
+        System.out.println(requestData.data());
+
+        return null;
+    }
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result addGradable(int courseId) {
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseId);
+        return ok(add_exam.render(pc));
+    }
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result submitGradAble(int courseId){
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+        System.out.println("yes heree");
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseId);
+        Form<AddGradable> addGradableForm = Form.form(AddGradable.class).bindFromRequest();
+        System.out.println("yes heree");
+        if(addGradableForm.hasErrors()) {
+            return null;
+        }
+        else {
+            Map<String, String> data = addGradableForm.data();
+            Gradable g = new Gradable(data.get("title"), Float.parseFloat(data.get("baggage")), data.get("date"));
+            pc.getGradables().add(g);
+            pc.save();
+            System.out.println(addGradableForm.data());
+            return ok(course_profile.render(pc, type));
+        }
+    }
+
+    public static class AddGradable{
+        public String title;
+        public Float baggage;
+        public String date;
+        public String courseId;
+
+     public String validate(){
+         System.out.println(title);
+         System.out.println(baggage);
+         System.out.println(date);
+         System.out.println(courseId);
+         return null;
+     }
     }
 
 }
