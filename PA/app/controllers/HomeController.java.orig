@@ -2,7 +2,6 @@ package controllers;
 
 
 import actions.ActionAuthenticator;
-import com.avaje.ebean.Ebean;
 import models.*;
 //import play.api.i18n.Messages;
 import play.data.DynamicForm;
@@ -17,7 +16,11 @@ import static play.data.Form.form;
 
 
 import java.io.File;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.List;
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
 
 
 /**
@@ -45,12 +48,13 @@ public class HomeController extends Controller {
         String id = session().get("id");
 //        System.out.println("Id is :   "+id);
         Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
+
         String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
 //        System.out.println(val.value());
 //        ArrayList<ProvidedCourse> courses = person.
         List<ProvidedCourse> courseList = null;
         if(type.equals("Student")){
-<<<<<<< Updated upstream
+<<<<<<< HEAD
             Student std = Student.find.byId(Integer.parseInt(id));
             if(std != null) {
                 courseList = std.getCourses();
@@ -68,10 +72,9 @@ public class HomeController extends Controller {
             System.out.println(type);
             return ok(main.render(teacher, courseList));
 =======
-            Student std = (Student)Student.find.where().eq("id", Integer.parseInt(id)).findUnique();
-            List<ProvidedCourse> courseList = ((Student)person).getcurrentCourses();
+            List<ProvidedCourse> courseList = ((Student)person).getCourses();
             return ok(main.render(person, courseList));
->>>>>>> Stashed changes
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
         }
         return null;
     }
@@ -113,22 +116,53 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
-//    public Result test(){
-//        Student st = (Student) Person.find.byId(87100345);
-//        for (ProvidedCourse course : st.getCurrentCourses()){
-//            System.err.println("=========");
-//            System.err.println(course.getCourse().title);
-//        }
-//        return redirect(routes.HomeController.index());
-//    }
+<<<<<<< HEAD
     public Result courseProfile(int id){
-        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
 
-        return ok(course_profile.render(pc));
+        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        return ok(course_profile.render(pc,type));
+    }
+    public Result setRes(int courseid){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+        Syllabes syll = pc.getSyllabes();
+        return ok(resources.render(pc, type, syll.getSources()));
+
+    }
+    public Result submitRes(int courseid){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
+        DynamicForm requestData = form().bindFromRequest();
+        Map<String, String> data = requestData.data();
+        Source nsource = new Source(data.get("source"), data.get("link"));
+        if(pc.getSyllabes() != null) {
+            pc.getSyllabes().getSources().add(nsource);
+=======
+    public Result test(){
+        Student st = Student.find.byId(87100345);
+
+        System.err.println(st.getName());
+        for (ProvidedCourse course : st.getCourses()){
+            System.err.println("=========");
+            System.err.println(course.getCourse().title);
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
+        }
+        else{
+            Syllabes s = new Syllabes();
+            s.getSources().add(nsource);
+            pc.setSyllabes(s);
+        }
+        pc.save();
+        return redirect(routes.HomeController.setRes(pc.id));
+
     }
     public Result duplicate(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
-        List<ProvidedCourse> courses     = ProvidedCourse.getPrevCourses(pc.getCourse());
+        List<ProvidedCourse> courses = ProvidedCourse.getPrevCourses(pc.getCourse());
         return ok(duplicate_description.render(courses));
     }
     public Result submitDuplicate(int id){
@@ -156,37 +190,20 @@ public class HomeController extends Controller {
         return ok();
     }
 
+
 public static class Login{
     public int id;
     public String password;
 
     public String validate(){
         System.out.println("====================2======================");
-<<<<<<< Updated upstream
-//        Person person = null;
-//        person = Person.authenticate(id, password);
-        Student student = Student.authenticate(id, password);
-        if(student != null){
-            return null;
-        }
-
-        Teacher teacher = Teacher.authenticate(id, password);
-        if(teacher != null){
-=======
         Person person = null;
         person = Person.authenticate(id, password);
         if (person == null){
             return Messages.get("invalid.user.or.password");
         }
         else
->>>>>>> Stashed changes
             return null;
-        }
-        Manager manager = Manager.authenticate(id, password);
-        if (manager == null)
-            return Messages.get("invalid.user.or.password");
-
-        return null;
     }
 }
     public Result authenticate() {
@@ -199,6 +216,10 @@ public static class Login{
             session("id", loginForm.get().id + "");
             return redirect(routes.HomeController.home());
         }
+    }
+    public Result logout(){
+        session().clear();
+        return ok(login.render(form(Login.class)));
     }
 
 }
