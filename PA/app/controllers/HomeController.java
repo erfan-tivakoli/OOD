@@ -109,8 +109,38 @@ public class HomeController extends Controller {
         }
     }
     public Result courseProfile(int id){
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
-        return ok(course_profile.render(pc));
+        return ok(course_profile.render(pc,type));
+    }
+    public Result setRes(int courseid){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
+        String userid = session().get("id");
+        Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+        Syllabes syll = pc.getSyllabes();
+        return ok(resources.render(pc, type, syll.getSources()));
+
+    }
+    public Result submitRes(int courseid){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseid);
+        DynamicForm requestData = form().bindFromRequest();
+        Map<String, String> data = requestData.data();
+        Source nsource = new Source(data.get("source"), data.get("link"));
+        if(pc.getSyllabes() != null) {
+            pc.getSyllabes().getSources().add(nsource);
+        }
+        else{
+            Syllabes s = new Syllabes();
+            s.getSources().add(nsource);
+            pc.setSyllabes(s);
+        }
+        pc.save();
+        return redirect(routes.HomeController.setRes(pc.id));
+
     }
     public Result duplicate(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
