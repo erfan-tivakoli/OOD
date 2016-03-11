@@ -2,7 +2,6 @@ package controllers;
 
 
 import actions.ActionAuthenticator;
-import com.avaje.ebean.Ebean;
 import models.*;
 //import play.api.i18n.Messages;
 import play.mvc.*;
@@ -16,10 +15,7 @@ import static play.data.Form.form;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -54,7 +50,7 @@ public class HomeController extends Controller {
         System.out.print(type);
 
         if(type.equals("Student")){
-            List<ProvidedCourse> courseList = ((Student)person).getCurrentCourses();
+            List<ProvidedCourse> courseList = ((Student)person).getCourses();
             return ok(main.render(person, courseList));
         }
         return null;
@@ -98,8 +94,10 @@ public class HomeController extends Controller {
         }
     }
     public Result test(){
-        Student st = (Student) Person.find.byId(87100345);
-        for (ProvidedCourse course : st.getCurrentCourses()){
+        Student st = Student.find.byId(87100345);
+
+        System.err.println(st.getName());
+        for (ProvidedCourse course : st.getCourses()){
             System.err.println("=========");
             System.err.println(course.getCourse().title);
         }

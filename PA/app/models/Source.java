@@ -15,6 +15,13 @@ public class Source extends Model {
     @Id
     @GeneratedValue
     public int id;
+    private String source;
+    private String link;
+
+    public Source(String source, String link){
+        this.source=source;
+        this.link=link;
+    }
 
     public String getSource() {
         return source;
@@ -31,8 +38,5 @@ public class Source extends Model {
     public void setLink(String link) {
         this.link = link;
     }
-
-    private String source;
-    private String link;
-
+    
 }

@@ -16,8 +16,6 @@ public class Teacher extends Person {
     private Level level = Level.Professor;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<ProvidedCourse> currentCourses=new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL)
     private List<ProvidedCourse> allCourses=new ArrayList<>();
 
 
@@ -27,22 +25,20 @@ public class Teacher extends Person {
 
 
     //TODO: to check this course was not present in the list
-    public void addCurrentCourse(ProvidedCourse currentCourse) {
+    public void addCourse(ProvidedCourse currentCourse) {
 
         if (!allCourses.contains(currentCourse)){
-            this.currentCourses.add(currentCourse);
             this.allCourses.add(currentCourse);
         }
     }
 
 
 
+    public static Finder<Integer,Teacher> find = new Finder<Integer,Teacher>(
+            Integer.class, Teacher.class
+    );
 
-    public List<ProvidedCourse> getCurrentCourses() {
-        return currentCourses;
-    }
-
-    public List<ProvidedCourse> getAllCourses() {
+    public List<ProvidedCourse> getCourses() {
         return allCourses;
     }
 

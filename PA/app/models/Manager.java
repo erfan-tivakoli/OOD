@@ -37,4 +37,8 @@ public class Manager extends Person {
 
     }
 
+    public static Finder<Integer,Manager> find = new Finder<Integer,Manager>(
+            Integer.class, Manager.class
+    );
+
 }

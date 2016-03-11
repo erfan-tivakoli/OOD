@@ -136,7 +136,7 @@ public class Parser {
                                     groupID, room, 3);
                             Ebean.save(providedCourse);
 
-                            teacher.addCurrentCourse(providedCourse);
+                            teacher.addCourse(providedCourse);
                             Ebean.update(teacher);
 
                         } catch (Exception e) {
@@ -163,7 +163,7 @@ public class Parser {
                 }
                 else{
                     try {
-                        student.addCurrentCourse(providedCourse);
+                        student.addCourse(providedCourse);
                         providedCourse.addStudent(student);
                         Ebean.update(student);
                         Ebean.update(providedCourse);
