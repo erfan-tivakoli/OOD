@@ -9,9 +9,8 @@ import java.util.Map;
 @DiscriminatorValue("Manager")
 public class Manager extends Person {
 
-    public Manager(int id, String password, String name, Date birthDate){
+    public Manager(int id, String password, String name, String birthDate){
         super(id, password, name, birthDate
-
         );
     }
 

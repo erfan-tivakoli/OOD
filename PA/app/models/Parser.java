@@ -73,11 +73,11 @@ public class Parser {
                 System.err.println("after find");
                 String name = Students[i][1];
                 String password = Students[i][2];
-
+                String birthDate = Students[i][3];
 
                 if (student == null) {
                     System.err.println("came in if");
-                    student = new Student(id,  password, name, new Date());
+                    student = new Student(id,  password, name, birthDate);
                     Ebean.save(student);
                 } else {
                     student.setName(name);
@@ -95,10 +95,11 @@ public class Parser {
                 Teacher teacher = (Teacher) Person.find.byId(id);
                 String name = Teachers[i][1];
                 String password = Students[i][2];
+                String birthDate = Students[i][3];
 
 
                 if (teacher == null) {
-                    teacher = new Teacher(id,  password , name, new Date());
+                    teacher = new Teacher(id,  password , name, birthDate);
                     Ebean.save(teacher);
                 } else {
                     System.err.println("We are updating the Teacher with ID : " + id);
@@ -136,7 +137,6 @@ public class Parser {
                                     groupID, room, 3);
                             Ebean.save(providedCourse);
 
-                            teacher.addCourse(providedCourse);
                             Ebean.update(teacher);
 
                         } catch (Exception e) {

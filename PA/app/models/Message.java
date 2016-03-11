@@ -11,11 +11,11 @@ public class Message extends Model{
 
     @Id
     @GeneratedValue
-    public int id;
+    private int id;
 
-    String body;
-    Person sender;
-    Date date;
+    private String body;
+    private Person sender;
+    private Date date;
 
     public Message(String body, Person sender, Date date){
         this.body = body;
@@ -23,7 +23,19 @@ public class Message extends Model{
         this.date = date;
     }
 
-    public String getContent(){
-        return this.body;
+    public int getId() {
+        return id;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public Person getSender() {
+        return sender;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

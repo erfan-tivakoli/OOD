@@ -38,5 +38,5 @@ public class Source extends Model {
     public void setLink(String link) {
         this.link = link;
     }
-    
+
 }
