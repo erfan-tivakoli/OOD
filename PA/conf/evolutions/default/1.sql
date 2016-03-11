@@ -4,31 +4,28 @@
 # --- !Ups
 
 create table course (
-  course_no                     integer not null,
+  course_no                     serial not null,
   title                         varchar(255),
   credits                       integer,
   constraint pk_course primary key (course_no)
 );
-create sequence course_seq;
 
 create table inbox (
-  id                            integer not null,
+  id                            serial not null,
   constraint pk_inbox primary key (id)
 );
-create sequence inbox_seq;
 
 create table message (
-  id                            integer not null,
+  id                            serial not null,
   inbox_id                      integer not null,
   body                          varchar(255),
   date                          timestamp,
   constraint pk_message primary key (id)
 );
-create sequence message_seq;
 
 create table person (
   role                          varchar(31) not null,
-  id                            integer not null,
+  id                            serial not null,
   password                      varchar(255),
   name                          varchar(255),
   birth_date                    varchar(255),
@@ -38,7 +35,6 @@ create table person (
   constraint uq_person_inbox_id unique (inbox_id),
   constraint pk_person primary key (id)
 );
-create sequence person_seq;
 
 create table person_provided_course (
   person_id                     integer not null,
@@ -47,7 +43,7 @@ create table person_provided_course (
 );
 
 create table provided_course (
-  id                            integer not null,
+  id                            serial not null,
   time                          varchar(255),
   final_exam_time               timestamp,
   teacher_id                    integer,
@@ -59,7 +55,6 @@ create table provided_course (
   constraint uq_provided_course_syllabes_id unique (syllabes_id),
   constraint pk_provided_course primary key (id)
 );
-create sequence provided_course_seq;
 
 create table provided_course_person (
   provided_course_id            integer not null,
@@ -68,20 +63,18 @@ create table provided_course_person (
 );
 
 create table source (
-  id                            integer not null,
+  id                            serial not null,
   source                        varchar(255),
   link                          varchar(255),
   constraint pk_source primary key (id)
 );
-create sequence source_seq;
 
 create table syllabes (
-  id                            integer not null,
+  id                            serial not null,
   topic_id                      integer,
   constraint uq_syllabes_topic_id unique (topic_id),
   constraint pk_syllabes primary key (id)
 );
-create sequence syllabes_seq;
 
 create table syllabes_source (
   syllabes_id                   integer not null,
@@ -90,11 +83,10 @@ create table syllabes_source (
 );
 
 create table topic (
-  id                            integer not null,
+  id                            serial not null,
   description                   varchar(255),
   constraint pk_topic primary key (id)
 );
-create sequence topic_seq;
 
 alter table message add constraint fk_message_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 create index ix_message_inbox_id on message (inbox_id);
@@ -165,33 +157,25 @@ drop index if exists ix_syllabes_source_syllabes;
 alter table syllabes_source drop constraint if exists fk_syllabes_source_source;
 drop index if exists ix_syllabes_source_source;
 
-drop table if exists course;
-drop sequence if exists course_seq;
+drop table if exists course cascade;
 
-drop table if exists inbox;
-drop sequence if exists inbox_seq;
+drop table if exists inbox cascade;
 
-drop table if exists message;
-drop sequence if exists message_seq;
+drop table if exists message cascade;
 
-drop table if exists person;
-drop sequence if exists person_seq;
+drop table if exists person cascade;
 
-drop table if exists person_provided_course;
+drop table if exists person_provided_course cascade;
 
-drop table if exists provided_course;
-drop sequence if exists provided_course_seq;
+drop table if exists provided_course cascade;
 
-drop table if exists provided_course_person;
+drop table if exists provided_course_person cascade;
 
-drop table if exists source;
-drop sequence if exists source_seq;
+drop table if exists source cascade;
 
-drop table if exists syllabes;
-drop sequence if exists syllabes_seq;
+drop table if exists syllabes cascade;
 
-drop table if exists syllabes_source;
+drop table if exists syllabes_source cascade;
 
-drop table if exists topic;
-drop sequence if exists topic_seq;
+drop table if exists topic cascade;
 

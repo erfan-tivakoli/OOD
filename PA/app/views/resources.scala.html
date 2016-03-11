@@ -1,0 +1,50 @@
+@(pc:ProvidedCourse, role:String, resources:List[Source])
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        @base.base_static()
+        <title></title>
+    </head>
+    <body>
+        @base.sidebar()
+        <div class="ui grid">
+            <div class="ui row">
+                <div class="sixteen wide column"></div>
+            </div>
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                <div class="ui celled ordered list">
+                    @for(res<-resources){
+                        <div class="item"><a href="@res.getLink">@res.getSource</a> </div>
+                    }
+                </div>
+                @if(role == "Teacher"){
+                    <div class="ui row">
+                        @helper.form(action=routes.HomeController.submitRes(pc.id)){
+                            <div class="ui field">
+                                <label for="source">Source</label>
+                                <input name="source" type="text" class="ui input">
+                            </div>
+                            <div class="ui field">
+                                <label for="link">Link</label>
+                                <input name="link" type="text" class="ui input">
+                            </div>
+                            <input type="submit" class="button blue submit">
+                        </div>
+
+                            }
+                    }
+
+
+
+            </div>
+            <div class="three wide column">
+                <div class="ui divided items">
+                </div>
+            </div>
+            <div class="two wide column"></div>
+        </div>
+    </body>
+</html>

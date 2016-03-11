@@ -1,4 +1,4 @@
-@(pc:ProvidedCourse)
+@(pc:ProvidedCourse, role:String)
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -84,15 +84,17 @@
                     </div>
 
                     <div class="ui segment right aligned">
-                        <p><a href="#">منابع</a></p>
+                        <p><a href="/course_profile/@pc.id/resources/">منابع</a></p>
                     </div>
                         <!--<div class="ui segment">-->
                         <!--<p style="text-align: right"><a href="#"></a></p>-->
                         <!--</div>-->
                 </div>
-                <div class="">
-                    <button class="ui button blue">Set syllabus</button>
-                </div>
+                @if(role == "Teacher") {
+                    <div class="">
+                        <a class="ui button blue" href="/duplicate/@pc.id">Set syllabus</a>
+                    </div>
+                }
             </div>
             <div class="two wide column"></div>
         </div>

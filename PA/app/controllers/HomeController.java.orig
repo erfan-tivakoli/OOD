@@ -2,7 +2,6 @@ package controllers;
 
 
 import actions.ActionAuthenticator;
-import com.avaje.ebean.Ebean;
 import models.*;
 //import play.api.i18n.Messages;
 import play.data.DynamicForm;
@@ -17,7 +16,11 @@ import static play.data.Form.form;
 
 
 import java.io.File;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.List;
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
 
 
 /**
@@ -51,6 +54,7 @@ public class HomeController extends Controller {
 //        ArrayList<ProvidedCourse> courses = person.
         List<ProvidedCourse> courseList = null;
         if(type.equals("Student")){
+<<<<<<< HEAD
             Student std = Student.find.byId(Integer.parseInt(id));
             if(std != null) {
                 courseList = std.getCourses();
@@ -67,6 +71,10 @@ public class HomeController extends Controller {
             System.out.println(courseList);
             System.out.println(type);
             return ok(main.render(teacher, courseList));
+=======
+            List<ProvidedCourse> courseList = ((Student)person).getCourses();
+            return ok(main.render(person, courseList));
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
         }
         return null;
     }
@@ -108,6 +116,7 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
+<<<<<<< HEAD
     public Result courseProfile(int id){
         String userid = session().get("id");
         Person person = Person.find.where().eq("id", Integer.parseInt(userid)).findUnique();
@@ -132,6 +141,15 @@ public class HomeController extends Controller {
         Source nsource = new Source(data.get("source"), data.get("link"));
         if(pc.getSyllabes() != null) {
             pc.getSyllabes().getSources().add(nsource);
+=======
+    public Result test(){
+        Student st = Student.find.byId(87100345);
+
+        System.err.println(st.getName());
+        for (ProvidedCourse course : st.getCourses()){
+            System.err.println("=========");
+            System.err.println(course.getCourse().title);
+>>>>>>> 40df4fae41988377cc3dc1cb151fa2677267e579
         }
         else{
             Syllabes s = new Syllabes();

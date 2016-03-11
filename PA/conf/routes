@@ -24,6 +24,10 @@ GET    /home                        controllers.HomeController.home
 #GET    /init                        controllers.HomeController.init
 
 
-GET /test                           controllers.HomeController.test
-GET /duplicate                      controllers.HomeController.duplicate
+#GET /test                           controllers.HomeController.test
+GET /duplicate/:id                      controllers.HomeController.duplicate(id:Integer)
+POST /duplicate/:id                     controllers.HomeController.submitDuplicate(id:Integer)
 GET /course_profile/:id             controllers.HomeController.courseProfile(id:Integer)
+GET /course_profile/:id/resources/  controllers.HomeController.setRes(id:Integer)
+POST /course_profile/:id/resources/ controllers.HomeController.submitRes(id:Integer)
+GET /logout                        controllers.HomeController.logout

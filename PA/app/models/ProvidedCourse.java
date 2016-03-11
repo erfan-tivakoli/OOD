@@ -111,9 +111,14 @@ public class ProvidedCourse extends Model {
     public Syllabes getSyllabes(){
         return syllabes;
     }
-
+    public void setSyllabes(Syllabes syllabes){
+        this.syllabes = syllabes;
+    }
     public Teacher getTeacher(){
         return this.teacher;
     }
-
+    public static List<ProvidedCourse> getPrevCourses(Course course){
+        List<ProvidedCourse> courses = ProvidedCourse.find.where().eq("course", course).findList();
+        return courses;
+    }
 }

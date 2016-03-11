@@ -39,4 +39,8 @@ public class Source extends Model {
         this.link = link;
     }
 
+    public static Finder<Integer,Source> find = new Finder<Integer,Source>(
+            Integer.class, Source.class
+    );
+
 }

@@ -57,6 +57,11 @@ public abstract class Person extends Model {
     }
 
 
+    public static Person authenticate(int id, String password){
+        return find.where().eq("id", id).eq("password",password).findUnique();
+    }
+
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -78,9 +83,6 @@ public abstract class Person extends Model {
         Integer.class, Person.class
     );
 
-    public static Person authenticate(int id, String password){
-        return find.where().eq("id", id).eq("password",password).findUnique();
-    }
 
 
 }
