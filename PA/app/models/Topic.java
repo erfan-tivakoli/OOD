@@ -19,6 +19,10 @@ public class Topic extends Model {
 
     private String description = "sample description " + id;
 
+    public Topic(String description){
+        this.description = description;
+    }
+
     public String getDescription(){
         return description;
     }

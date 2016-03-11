@@ -49,10 +49,9 @@ public class HomeController extends Controller {
         String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
 //        System.out.println(val.value());
 //        ArrayList<ProvidedCourse> courses = person.
-        System.out.print(type);
 
         if(type.equals("Student")){
-            List<ProvidedCourse> courseList = ((Student)person).getCurrentCourses();
+            List<ProvidedCourse> courseList = ((Student)person).getCourses();
             System.out.println(courseList);
             System.out.println(type);
             return ok(main.render(person, courseList));
@@ -97,16 +96,17 @@ public class HomeController extends Controller {
             return badRequest();
         }
     }
-    public Result test(){
-        Student st = (Student) Person.find.byId(87100345);
-        for (ProvidedCourse course : st.getCurrentCourses()){
-            System.err.println("=========");
-            System.err.println(course.getCourse().title);
-        }
-        return redirect(routes.HomeController.index());
-    }
+//    public Result test(){
+//        Student st = (Student) Person.find.byId(87100345);
+//        for (ProvidedCourse course : st.getCurrentCourses()){
+//            System.err.println("=========");
+//            System.err.println(course.getCourse().title);
+//        }
+//        return redirect(routes.HomeController.index());
+//    }
     public Result courseProfile(int id){
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
+
         return ok(course_profile.render(pc));
     }
     public Result duplicate(int id){
@@ -120,9 +120,10 @@ public class HomeController extends Controller {
         Map<String, String> data = requestData.data();
         System.out.println(data);
         String desc = data.get("description");
-        
+        Topic topic = new Topic(desc);
         data.remove("description");
         ArrayList<Source> sources = new ArrayList<Source>();
+
         for(Map.Entry<String, String> item: data.entrySet()){
             System.out.println(item.getKey());
             System.out.println(item.getValue());
@@ -130,6 +131,11 @@ public class HomeController extends Controller {
             Source nSource = Source.find.byId(Integer.parseInt(item.getKey()));
             sources.add(nSource);
         }
+        Syllabes syllabes = new Syllabes();
+        syllabes.setTopic(topic);
+        syllabes.setSources(sources);
+        pc.setSyllabes(syllabes);
+        pc.save();
         return ok();
     }
 
@@ -139,12 +145,22 @@ public static class Login{
 
     public String validate(){
         System.out.println("====================2======================");
-        Person person = null;
-        person = Person.authenticate(id, password);
-        if (person == null)
-            return Messages.get("invalid.user.or.password");
-        else
+//        Person person = null;
+//        person = Person.authenticate(id, password);
+        Student student = Student.authenticate(id, password);
+        if(student != null){
             return null;
+        }
+
+        Teacher teacher = Teacher.authenticate(id, password);
+        if(teacher != null){
+            return null;
+        }
+        Manager manager = Manager.authenticate(id, password);
+        if (manager == null)
+            return Messages.get("invalid.user.or.password");
+
+        return null;
     }
 }
     public Result authenticate() {

@@ -9,8 +9,7 @@ import java.util.List;
 @DiscriminatorValue("Student")
 public class Student extends Person{
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<ProvidedCourse> currentCourses=new ArrayList<>();
+
     @ManyToMany(cascade = CascadeType.ALL)
     private List<ProvidedCourse> allCourses=new ArrayList<>();
 
@@ -19,23 +18,26 @@ public class Student extends Person{
         super(id, password, name, birthDate);
     }
 
-    public List<ProvidedCourse> getAllCourses(){
+    public List<ProvidedCourse> getCourses(){
         return allCourses;
     }
 
-    public List<ProvidedCourse> getCurrentCourses(){
-        return currentCourses;
-    }
 
-    public void addCurrentCourse(ProvidedCourse providedCourse){
+    public void addCourse(ProvidedCourse providedCourse){
 
         if (!allCourses.contains(providedCourse)){
-            this.currentCourses.add(providedCourse);
             this.allCourses.add(providedCourse);
         }
         else{
             System.err.println("This is redundant");
         }
+    }
+
+    public static Finder<Integer,Student> find = new Finder<Integer,Student>(
+            Integer.class, Student.class
+    );
+    public static Student authenticate(int id, String password){
+        return find.where().eq("id", id).eq("password",password).findUnique();
     }
 
 

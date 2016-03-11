@@ -37,4 +37,11 @@ public class Manager extends Person {
 
     }
 
+    public static Finder<Integer,Manager> find = new Finder<Integer,Manager>(
+            Integer.class, Manager.class
+    );
+    public static Manager authenticate(int id, String password){
+        return find.where().eq("id", id).eq("password",password).findUnique();
+    }
+
 }

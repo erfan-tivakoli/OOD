@@ -15,6 +15,13 @@ public class Source extends Model {
     @Id
     @GeneratedValue
     public int id;
+    private String source;
+    private String link;
+
+    public Source(String source, String link){
+        this.source=source;
+        this.link=link;
+    }
 
     public String getSource() {
         return source;
@@ -32,8 +39,6 @@ public class Source extends Model {
         this.link = link;
     }
 
-    private String source = "sample source";
-    private String link = "ce.sharif.edu/1.pdf";
     public static Finder<Integer,Source> find = new Finder<Integer,Source>(
             Integer.class, Source.class
     );

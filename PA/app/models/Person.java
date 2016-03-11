@@ -60,11 +60,7 @@ public abstract class Person extends Model {
     }
 
     public static Person authenticate(int id, String password){
-        System.out.println("==========================");
         return find.where().eq("id", id).eq("password",password).findUnique();
-//        if (p!=null)
-//            return  p.getPassword().equals(password) ? p : null;
-//        return null;
     }
 
     public void setPassword(String password) {

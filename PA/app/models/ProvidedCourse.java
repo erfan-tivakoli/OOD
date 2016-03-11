@@ -111,7 +111,9 @@ public class ProvidedCourse extends Model {
     public Syllabes getSyllabes(){
         return syllabes;
     }
-
+    public void setSyllabes(Syllabes syllabes){
+        this.syllabes = syllabes;
+    }
     public Teacher getTeacher(){
         return this.teacher;
     }

@@ -24,7 +24,7 @@ GET    /home                        controllers.HomeController.home
 #GET    /init                        controllers.HomeController.init
 
 
-GET /test                           controllers.HomeController.test
+#GET /test                           controllers.HomeController.test
 GET /duplicate/:id                      controllers.HomeController.duplicate(id:Integer)
 POST /duplicate/:id                     controllers.HomeController.submitDuplicate(id:Integer)
 GET /course_profile/:id             controllers.HomeController.courseProfile(id:Integer)
