@@ -1,0 +1,45 @@
+@(pc:ProvidedCourse, students:List[Student], gradables:List[Gradable])
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        @base.base_static()
+        <title></title>
+        </head>
+    <body>
+        @base.sidebar()
+        <div class="ui grid">
+            <div class="ui row">
+                <div class="sixteen wide column"></div>
+            </div>
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                <div class="ui styled accordion">
+                @for(gradable<-gradables){
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        @gradable.getTitle
+                    </div>
+                    <div class="content">
+                        @for(grade<-gradable.getGrades){
+                            <div>
+                                @grade.studentID : @grade.grade
+                            </div>
+                        }
+                    </div>
+
+                }
+                </div>
+            </div>
+            <div class="three wide column">
+            </div>
+            <div class="two wide column"></div>
+        </div>
+    </body>
+    <script>
+            $('.ui.accordion')
+              .accordion()
+            ;
+        </script>
+</html>

@@ -276,6 +276,10 @@ public static class Login{
 
         return ok(course_profile.render(pc, type));
     }
+    public Result showGrades(int courseId){
+        ProvidedCourse pc = ProvidedCourse.find.byId(courseId);
+        return ok(show_grade.render(pc, pc.getStudents(), pc.getGradables()));
+    }
     @Security.Authenticated(ActionAuthenticator.class)
     public Result addGradable(int courseId) {
         ProvidedCourse pc = ProvidedCourse.find.byId(courseId);

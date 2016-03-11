@@ -13,11 +13,17 @@ public class Gradable extends Model {
     @GeneratedValue
     public int id;
 
-    Grade g1 = new Grade(-2,3);
+
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Grade> grades = new ArrayList<Grade>(){{
-        add(g1);
-    }};
+    private List<Grade> grades = new ArrayList<Grade>();
 
 
     public String getDate() {
@@ -31,6 +37,15 @@ public class Gradable extends Model {
     private String date;
 
     private float baggage;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private String title;
 
     public Gradable(String title, float baggage, String date){

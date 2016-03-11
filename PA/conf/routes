@@ -37,3 +37,4 @@ GET  /add_gradable/:courseId   controllers.HomeController.addGradable(courseId:I
 POST /add_gradable/:id             controllers.HomeController.submitGradAble(id:Integer)
 GET /add_grade/:courseId/:gradableId        controllers.HomeController.addGrade(courseId:Integer, gradableId:Integer)
 POST /add_grade/:courseId/:gradableId       controllers.HomeController.submitGrade(courseId:Integer, gradableId:Integer)
+GET /show_grade/:courseId                   controllers.HomeController.showGrades(courseId:Integer)
