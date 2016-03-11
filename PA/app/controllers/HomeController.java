@@ -4,6 +4,7 @@ import actions.ActionAuthenticator;
 import com.avaje.ebean.Ebean;
 import models.*;
 //import play.api.i18n.Messages;
+import play.data.DynamicForm;
 import play.mvc.*;
 import play.data.Form;
 import views.html.*;
@@ -14,10 +15,7 @@ import javax.persistence.DiscriminatorValue;
 import static play.data.Form.form;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -106,9 +104,37 @@ public class HomeController extends Controller {
         ProvidedCourse pc = ProvidedCourse.find.byId(id);
         return ok(course_profile.render(pc));
     }
-    public Result duplicate(){
-        return ok(duplicate_description.render());
+
+    public Result duplicate(int id){
+        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        List<ProvidedCourse> courses = ProvidedCourse.getPrevCourses(pc.getCourse());
+        return ok(duplicate_description.render(courses));
     }
+    public Result submitDuplicate(int id){
+        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        DynamicForm requestData = form().bindFromRequest();
+        Map<String, String> data = requestData.data();
+        System.out.println(data);
+        String desc = data.get("description");
+        Topic topic = new Topic(desc);
+        data.remove("description");
+        ArrayList<Source> sources = new ArrayList<Source>();
+
+        for(Map.Entry<String, String> item: data.entrySet()){
+            System.out.println(item.getKey());
+            System.out.println(item.getValue());
+            System.out.println("===========================|||||||||||||||||");
+            Source nSource = Source.find.byId(Integer.parseInt(item.getKey()));
+            sources.add(nSource);
+        }
+        Syllabes syllabes = new Syllabes();
+        syllabes.setTopic(topic);
+        syllabes.setSources(sources);
+        pc.setSyllabes(syllabes);
+        pc.save();
+        return ok();
+    }
+
 
 public static class Login{
     public int id;
