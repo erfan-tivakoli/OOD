@@ -23,6 +23,8 @@ public class ProvidedCourse extends Model {
     private Course course;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Student> students = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private Syllabes syllabes = new Syllabes();
 
 
     private String semester;
@@ -78,4 +80,8 @@ public class ProvidedCourse extends Model {
             this.students.add(student);
         }
     }
+
+//    public Syllabes getSyllabes(){
+//        return syllabes;
+//    }
 }

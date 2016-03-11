@@ -23,7 +23,7 @@ public class Student extends Person{
         return allCourses;
     }
 
-    public List<ProvidedCourse> getcurrentCourses(){
+    public List<ProvidedCourse> getCurrentCourses(){
         return currentCourses;
     }
 

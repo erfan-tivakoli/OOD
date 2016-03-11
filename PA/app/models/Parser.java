@@ -69,7 +69,9 @@ public class Parser {
             if (!(Students[i][0].equals("empty"))) {
                 int id = Double.valueOf(Students[i][0]).intValue();
                 System.err.println("before find");
-                Student student = (Student) Person.find.byId(id);
+                Person temp = Person.find.byId(id);
+                Student student = (Student) temp;
+//                Student student = (Student) Person.find.byId(id);
                 System.err.println("after find");
                 String name = Students[i][1];
                 String password = Students[i][2];

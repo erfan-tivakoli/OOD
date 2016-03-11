@@ -1,13 +1,9 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.*;
 import play.mvc.*;
 
 import views.html.*;
-
-import java.util.Date;
-import java.util.Random;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -59,7 +55,7 @@ public class HomeController extends Controller {
 
     public Result test(){
         Student st = (Student) Person.find.byId(87100345);
-        for (ProvidedCourse course : st.getcurrentCourses()){
+        for (ProvidedCourse course : st.getCurrentCourses()){
             System.err.println("=========");
             System.err.println(course.getCourse().title);
         }

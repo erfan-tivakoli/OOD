@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -15,9 +16,9 @@ public class Teacher extends Person {
     private Level level = Level.Professor;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<ProvidedCourse> currentCourses=new ArrayList<>();
+    private List<ProvidedCourse> currentCourses=new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL)
-    private ArrayList<ProvidedCourse> allCourses=new ArrayList<>();
+    private List<ProvidedCourse> allCourses=new ArrayList<>();
 
 
     public Teacher(int id, String password, String name, Date birthDate) {
@@ -37,11 +38,11 @@ public class Teacher extends Person {
 
 
 
-    public ArrayList<ProvidedCourse> getCurrentCourses() {
+    public List<ProvidedCourse> getCurrentCourses() {
         return currentCourses;
     }
 
-    public ArrayList<ProvidedCourse> getAllCourses() {
+    public List<ProvidedCourse> getAllCourses() {
         return allCourses;
     }
 
