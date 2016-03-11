@@ -1,9 +1,26 @@
 package controllers;
 
-import models.*;
-import play.mvc.*;
 
+import actions.ActionAuthenticator;
+import com.avaje.ebean.Ebean;
+import models.*;
+//import play.api.i18n.Messages;
+import play.mvc.*;
+import play.data.Form;
 import views.html.*;
+import play.i18n.Messages;
+
+import javax.persistence.DiscriminatorValue;
+
+import static play.data.Form.form;
+
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -18,11 +35,29 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
+        return ok(login.render(form(Login.class)));
+    }
 
-//        Teacher user = new Teacher((int)(Math.random()*10000),"1", "a", new Date());
-//        Ebean.save(user);
-        return ok(index.render());
+    public Result addSemesterInfoFile() {
+        return ok(add_semester_info.render());
+    }
 
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result home(){
+        String id = session().get("id");
+//        System.out.println("Id is :   "+id);
+        Person person = Person.find.where().eq("id", Integer.parseInt(id)).findUnique();
+
+        String type = person.getClass().getAnnotation(DiscriminatorValue.class).value();
+//        System.out.println(val.value());
+//        ArrayList<ProvidedCourse> courses = person.
+        System.out.print(type);
+
+        if(type.equals("Student")){
+            List<ProvidedCourse> courseList = ((Student)person).getCurrentCourses();
+            return ok(main.render(person, courseList));
+        }
+        return null;
     }
 
     public Result addPerson() {
@@ -48,11 +83,20 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.index());
     }
 
-    public Result init(){
-        Manager.initializeSemester("/Users/Rfun/Downloads/source.xlsx");
-        return redirect(routes.HomeController.index());
+    public play.mvc.Result init(){
+        play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
+        play.mvc.Http.MultipartFormData.FilePart filePart = body.getFile("info");
+        if (filePart != null) {
+            String fileName = filePart.getFilename();
+            String contentType = filePart.getContentType();
+            java.io.File file = (File) filePart.getFile();
+            Manager.initializeSemester(file);
+            return redirect(routes.HomeController.index());
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
     }
-
     public Result test(){
         Student st = (Student) Person.find.byId(87100345);
         for (ProvidedCourse course : st.getCurrentCourses()){
@@ -61,6 +105,39 @@ public class HomeController extends Controller {
         }
         return redirect(routes.HomeController.index());
     }
+    public Result courseProfile(int id){
+        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        return ok(course_profile.render(pc));
+    }
+    public Result duplicate(){
+        return ok(duplicate_description.render());
+    }
 
+public static class Login{
+    public int id;
+    public String password;
+
+    public String validate(){
+        System.out.println("====================2======================");
+        Person person = null;
+        person = Person.authenticate(id, password);
+        if (person == null)
+            return Messages.get("invalid.user.or.password");
+        else
+            return null;
+    }
+}
+    public Result authenticate() {
+        System.out.println("==========================================");
+        Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
+//        Form<Register> registerForm = form(Register.class);
+        if (loginForm.hasErrors()) {
+            return null;//badRequest(index.render(registerForm, loginForm));
+        } else {
+            session("id", loginForm.get().id + "");
+            return redirect(routes.HomeController.home());
+        }
+    }
 
 }
+

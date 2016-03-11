@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, String[][]> xlsxParse(String sourceAddress) {
+    public static Map<String, String[][]> xlsxParse(File source) {
         try {
-            File source = new File(sourceAddress);
+//            File source = new File(sourceAddress);
             XSSFWorkbook wb = readFile(source);
 
             Map<String, String[][]> sheets = new HashMap<String, String[][]>();
@@ -36,12 +36,10 @@ public class Parser {
                         for (int k = row.getFirstCellNum(); k < row.getLastCellNum(); ++k) {
                             data[j - 1][k] = row.getCell(k).toString();
                         }
-
                     }
                 }
                 sheets.put(sheet.getSheetName(), data);
             }
-
             return sheets;
         } catch (IOException e) {
             System.err.println("Could not connect to EDU.");

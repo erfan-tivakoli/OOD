@@ -1,0 +1,118 @@
+@(pc:ProvidedCourse)
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        @base.base_static()
+        <title></title>
+    </head>
+    <body>
+        @base.sidebar()
+        <div class="ui grid">
+            <div class="ui row"></div>
+            <div class="three wide column"></div>
+            <div class="eight wide column">
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">@pc.getCourse.courseNo: @pc.getCourse.title</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">واحد:@pc.getCourse.credits</li>
+                                <li class="ui right aligned">ترم:@pc.getSemester</li>
+                                <li class="ui right aligned">گروه:@pc.getGroupID</li>
+                                <li class="ui right aligned">کلاس:@pc.getRoom</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">مدرس</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">@pc.getTeacher.getName</li>
+                                @*<li class="ui right aligned">amini [AT] sharif [DOT] edu</li>*@
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">دستیاران آموزشی</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">اتقی زاد lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                                <li class="ui right aligned">امیر لاجوردی lajevardi@@ce.sharif.edu</li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="ui row">
+                    <div class="ui stacked segment">
+                        <div class="ui right aligned segment ">مرجع</div>
+                        <div class="ui right aligned segment">
+                            <ul style="list-style-type : none ;">
+                                <li class="ui right aligned"> W. H. Hayt, J. E. Kemmerly, and S. M. Durbin, Engineering Circuit Analysis (6th Edition), McGraw Hill, 2002.</li>
+                                <li class="ui right aligned"> R. Boylestad and L. Nashelsky, Electronic Devices and Circuit Theory (4th Edition), Prentice Hall, 1987.</li>
+                                <li class="ui right aligned"> W. H. Hayt, J. E. Kemmerly, and S. M. Durbin, Engineering Circuit Analysis (6th Edition), McGraw Hill, 2002.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui compact segments">
+                    <div class="ui segment right aligned">
+                        <p><a href="#">پروژه</a></p>
+                    </div>
+                    <div class="ui segment right aligned">
+                        <p><a href="#">نمره</a></p>
+                    </div>
+                    <div class="ui segment right aligned">
+                        <p><a href="#">امتحان</a></p>
+                    </div>
+
+                    <div class="ui segment right aligned">
+                        <p><a href="#">منابع</a></p>
+                    </div>
+                        <!--<div class="ui segment">-->
+                        <!--<p style="text-align: right"><a href="#"></a></p>-->
+                        <!--</div>-->
+                </div>
+                <div class="">
+                    <button class="ui button blue">Set syllabus</button>
+                </div>
+            </div>
+            <div class="two wide column"></div>
+        </div>
+
+        <script src="@routes.Assets.versioned("/static/js/jquery-2.1.4.min.js")"></script>
+        <script src="@routes.Assets.versioned("/static/semantic/semantic.min.js")"></script>
+        <script>
+          $(document).ready(function() {
+                $('.ui.labeled.icon.sidebar')
+                          .sidebar('toggle')
+                  ;
+
+          })
+        $(document).click(function(e){
+            if(e.pageX<50)
+
+                $('.ui.labeled.icon.sidebar')
+                          .sidebar('toggle')
+                  ;
+        });
+        </script>
+    </body>
+</html>

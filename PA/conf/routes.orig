@@ -25,5 +25,8 @@ GET    /home                        controllers.HomeController.home
 
 
 GET /test                           controllers.HomeController.test
+<<<<<<< HEAD
 GET /duplicate                      controllers.HomeController.duplicate
-GET /course_profile/:id             controllers.HomeController.courseProfile(id:Integer)
+GET /course_profile/:id             controllers.HomeController
+=======
+>>>>>>> database
