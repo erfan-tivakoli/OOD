@@ -102,6 +102,10 @@ public class HomeController extends Controller {
         }
         return redirect(routes.HomeController.index());
     }
+    public Result courseProfile(int id){
+        ProvidedCourse pc = ProvidedCourse.find.byId(id);
+        return ok(course_profile.render(pc));
+    }
     public Result duplicate(){
         return ok(duplicate_description.render());
     }

@@ -54,6 +54,12 @@ create table provided_course (
   constraint pk_provided_course primary key (id)
 );
 
+create table provided_course_person (
+  provided_course_id            integer not null,
+  person_id                     integer not null,
+  constraint pk_provided_course_person primary key (provided_course_id,person_id)
+);
+
 alter table message add constraint fk_message_inbox_id foreign key (inbox_id) references inbox (id) on delete restrict on update restrict;
 create index ix_message_inbox_id on message (inbox_id);
 
@@ -70,6 +76,12 @@ create index ix_provided_course_teacher_id on provided_course (teacher_id);
 
 alter table provided_course add constraint fk_provided_course_course_course_no foreign key (course_course_no) references course (course_no) on delete restrict on update restrict;
 create index ix_provided_course_course_course_no on provided_course (course_course_no);
+
+alter table provided_course_person add constraint fk_provided_course_person_provided_course foreign key (provided_course_id) references provided_course (id) on delete restrict on update restrict;
+create index ix_provided_course_person_provided_course on provided_course_person (provided_course_id);
+
+alter table provided_course_person add constraint fk_provided_course_person_person foreign key (person_id) references person (id) on delete restrict on update restrict;
+create index ix_provided_course_person_person on provided_course_person (person_id);
 
 
 # --- !Downs
@@ -91,6 +103,12 @@ drop index if exists ix_provided_course_teacher_id;
 alter table provided_course drop constraint if exists fk_provided_course_course_course_no;
 drop index if exists ix_provided_course_course_course_no;
 
+alter table provided_course_person drop constraint if exists fk_provided_course_person_provided_course;
+drop index if exists ix_provided_course_person_provided_course;
+
+alter table provided_course_person drop constraint if exists fk_provided_course_person_person;
+drop index if exists ix_provided_course_person_person;
+
 drop table if exists course cascade;
 
 drop table if exists inbox cascade;
@@ -102,4 +120,6 @@ drop table if exists person cascade;
 drop table if exists person_provided_course cascade;
 
 drop table if exists provided_course cascade;
+
+drop table if exists provided_course_person cascade;
 

@@ -1,3 +1,4 @@
+@(pc:ProvidedCourse)
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -13,13 +14,13 @@
             <div class="eight wide column">
                 <div class="ui row">
                     <div class="ui stacked segment">
-                        <div class="ui right aligned segment ">کارگاه کامپیوتر 40108</div>
+                        <div class="ui right aligned segment ">@pc.getCourse.courseNo: @pc.getCourse.title</div>
                         <div class="ui right aligned segment">
                             <ul style="list-style-type : none ;">
-                                <li class="ui right aligned">واحد:۳</li>
-                                <li class="ui right aligned">ترم:۹۴-۹۵-۱</li>
-                                <li class="ui right aligned">گروه:۱</li>
-                                <li class="ui right aligned">کلاس:۱۰۶</li>
+                                <li class="ui right aligned">واحد:@pc.getCourse.credits</li>
+                                <li class="ui right aligned">ترم:@pc.getSemester</li>
+                                <li class="ui right aligned">گروه:@pc.getGroupID</li>
+                                <li class="ui right aligned">کلاس:@pc.getRoom</li>
                             </ul>
                         </div>
 
@@ -31,8 +32,8 @@
                         <div class="ui right aligned segment ">مدرس</div>
                         <div class="ui right aligned segment">
                             <ul style="list-style-type : none ;">
-                                <li class="ui right aligned">مرتضی امینی</li>
-                                <li class="ui right aligned">amini [AT] sharif [DOT] edu</li>
+                                <li class="ui right aligned">@pc.getTeacher.getName</li>
+                                @*<li class="ui right aligned">amini [AT] sharif [DOT] edu</li>*@
                             </ul>
                         </div>
 

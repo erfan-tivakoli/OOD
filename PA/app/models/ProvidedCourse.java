@@ -25,8 +25,34 @@ public class ProvidedCourse extends Model {
     private List<Student> students = new ArrayList<>();
 
 
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
     private String semester;
+
+    public int getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
+
     private int groupID;
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
     private String room;
 
     //TODO: change the format of time to a better class, and also semester
@@ -73,10 +99,11 @@ public class ProvidedCourse extends Model {
         return this.students;
     }
 
-    public void addStudent(Student student){
-        if(!(this.students.contains(student))){
+    public void addStudent(Student student) {
+        if (!(this.students.contains(student))) {
             this.students.add(student);
         }
+    }
     public Teacher getTeacher(){
         return this.teacher;
     }
