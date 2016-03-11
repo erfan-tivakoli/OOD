@@ -13,6 +13,10 @@ public class Topic extends Model {
     @GeneratedValue
     public int id;
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private String description = "sample description " + id;
 
     public String getDescription(){

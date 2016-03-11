@@ -1,4 +1,4 @@
-@*//@(person: Person, courseList:List[ProvidedCourse])*@
+@(courses:List[ProvidedCourse])
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -16,71 +16,31 @@
             <div class="three wide column"></div>
             <div class="eight wide column">
                 <div class="ui styled accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        What is a dog?
-                    </div>
-                    <div class="content">
-                        <form>
-                            <div>
-                                <textarea style="margin-top: 0px; margin-bottom: 0px; height: 168px; width:574px;">A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
-                                </textarea>
-                            </div>
-                            <div>
-                                <input class="ui checkbox" type="checkbox" name="example1">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div >
-                                <input class="ui checkbox" type="checkbox" name="example2">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div>
-                                <input class="ui checkbox" type="checkbox" name="example3">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <input type="submit" class="ui button blue" value="save">
-                        </form>
-                    </div>
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        What kinds of dogs are there?
-                    </div>
-                    <div class="content">
-                        <form>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        How do you acquire a dog?
-                    </div>
-                    <div class="content">
-                        <form>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                            <div class="ui field checkbox">
-                                <input type="checkbox" name="example">
-                                <label><a>res1.pdf</a></label>
-                            </div>
-                        </form>
-                    </div>
+                    @for(course <- courses){
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            @course.getCourse.title  @course.getSemester
+                        </div>
+                        <div class="content">
+                            @helper.form(action = routes.HomeController.submitDuplicate(course.id)){
+                            @*<form action="@routes.HomeController.submitDuplicate(course.id)">*@
+                                <div>
+                                    <textarea name="description"style="margin-top: 0px; margin-bottom: 0px; height: 168px; width:574px;">@if(course.getSyllabes != null) {
+                                            @course.getSyllabes.getDescription
+                                        }
+                                    </textarea>
+                                </div>
+                                @for(source<-course.getSyllabes.getSources){
+                                <div>
+                                    <input class="ui checkbox" type="checkbox" name="@source.id">
+                                    <label><a>@source.getLink</a></label>
+                                </div>
+                                }
+                                <input type="submit" class="ui button blue" value="save">
+                            @*</form>*@
+                                }
+                        </div>
+                    }
                 </div>
             </div>
 

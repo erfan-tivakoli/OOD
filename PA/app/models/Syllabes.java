@@ -19,6 +19,11 @@ public class Syllabes extends Model {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Topic topic = new Topic();
+    //test
+    private Source s1 = new Source();
+    private Source s2 = new Source();
+    private Source s3 = new Source();
+
 
 
     public String getDescription(){
@@ -26,7 +31,12 @@ public class Syllabes extends Model {
     }
 
     public List<Source> getSources() {
-        return sources;
+        ArrayList<Source> temp = new ArrayList<Source>();
+        temp.add(s1);
+        temp.add(s2);
+        temp.add(s3);
+//        return sources;
+        return temp;
     }
 
     public void setSources(List<Source> sources) {

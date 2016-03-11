@@ -115,5 +115,8 @@ public class ProvidedCourse extends Model {
     public Teacher getTeacher(){
         return this.teacher;
     }
-
+    public static List<ProvidedCourse> getPrevCourses(Course course){
+        List<ProvidedCourse> courses = ProvidedCourse.find.where().eq("course", course).findList();
+        return courses;
+    }
 }

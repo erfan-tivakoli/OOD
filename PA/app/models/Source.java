@@ -32,7 +32,10 @@ public class Source extends Model {
         this.link = link;
     }
 
-    private String source;
-    private String link;
+    private String source = "sample source";
+    private String link = "ce.sharif.edu/1.pdf";
+    public static Finder<Integer,Source> find = new Finder<Integer,Source>(
+            Integer.class, Source.class
+    );
 
 }
