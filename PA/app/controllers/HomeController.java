@@ -270,7 +270,7 @@ public static class Login{
             grades.add(g);
         }
         gable.setGrades(grades);
-        gable.save();
+        gable.update();
 
 
 
