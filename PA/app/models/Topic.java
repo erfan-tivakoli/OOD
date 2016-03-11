@@ -1,0 +1,21 @@
+package models;
+
+import com.avaje.ebean.Model;
+
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class Topic extends Model {
+    @Id
+    @GeneratedValue
+    public int id;
+
+    private String description = "sample description " + id;
+
+    public String getDescription(){
+        return description;
+    }
+}
